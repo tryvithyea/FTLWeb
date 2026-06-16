@@ -1,5 +1,5 @@
-<script>
 
+'use strict';
 /* ──────────────────────────────
    TINY DOM HELPERS
 ────────────────────────────── */
@@ -279,4 +279,3 @@ $('#contactForm').addEventListener('submit', function(e) {
     }, 3500);
   }, 1200);
 });
-</script>

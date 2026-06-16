@@ -1,17 +1,9 @@
-#nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-
-  height: var(--nav-h);
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 60px;
-
-  background: transparent;
-  z-index: 1000;
+.nav-drawer {
+  position: fixed; top: var(--nav-h); left: 0; right: 0;
+  background: var(--white); z-index: 1001;
+  padding: 24px 32px 32px;
+  transform: translateY(-110%);
+  transition: transform 0.4s var(--ease-out);
+  box-shadow: 0 8px 32px rgba(38,55,70,0.12);
+  border-top: 1px solid var(--border);
 }

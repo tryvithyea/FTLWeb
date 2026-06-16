@@ -1,5 +1,4 @@
 <script>
-'use strict';
 
 /* ──────────────────────────────
    TINY DOM HELPERS

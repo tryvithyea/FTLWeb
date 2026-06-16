@@ -802,3 +802,48 @@ footer {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==========================================
+   MOBILE NAV FIX
+========================================== */
+@media (max-width: 768px) {
+
+  /* Navbar spacing */
+  #nav {
+    padding: 0 24px;
+  }
+
+  /* Hide desktop menu */
+  .nav-links,
+  .nav-cta {
+    display: none;
+  }
+
+  /* Show hamburger */
+  .nav-hamburger {
+    display: flex;
+    z-index: 1001;
+  }
+
+  /* Mobile drawer */
+  .nav-drawer {
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+
+    background: var(--white);
+
+    transform: translateY(-120%);
+    transition: transform .35s ease;
+
+    z-index: 1000;
+
+    max-height: calc(100vh - var(--nav-h));
+    overflow-y: auto;
+  }
+
+  .nav-drawer.open {
+    transform: translateY(0);
+  }
+}

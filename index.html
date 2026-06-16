@@ -3,740 +3,770 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>LifeShield Insurance — Protect What Matters</title>
+<title>FTL Insurance — Coverage You Can Trust</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+
+<!-- Page-specific overrides only — base design lives in style.css -->
 <style>
-  /* ── Reset & Base ── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --navy:   #0B1F3A;
-    --gold:   #C9A84C;
-    --gold-lt:#E8C96C;
-    --white:  #FFFFFF;
-    --slate:  #8FA3B8;
-    --mist:   #F0F4F8;
-    --dark2:  #132840;
-    --ease:   cubic-bezier(.22,.68,0,1.2);
-  }
-  html { scroll-behavior: smooth; }
-  body {
-    font-family: 'Inter', sans-serif;
-    background: var(--navy);
-    color: var(--white);
-    overflow-x: hidden;
-  }
-
-  /* ── Scrollbar ── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: var(--navy); }
-  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 60px;
-    transition: background .4s, backdrop-filter .4s, padding .3s;
-  }
-  nav.scrolled {
-    background: rgba(11,31,58,.92);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    padding: 14px 60px;
-    border-bottom: 1px solid rgba(201,168,76,.18);
-  }
-  .nav-logo {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem; font-weight: 700;
-    color: var(--white); text-decoration: none;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .nav-logo span { color: var(--gold); }
-  .logo-shield {
-    width: 32px; height: 32px;
-    background: var(--gold);
-    clip-path: polygon(50% 0%,100% 25%,100% 70%,50% 100%,0% 70%,0% 25%);
-    display: flex; align-items: center; justify-content: center;
-    font-size:.8rem; font-weight:700; color: var(--navy);
-    flex-shrink:0;
-  }
-  .nav-links { display: flex; gap: 38px; list-style: none; }
-  .nav-links a {
-    color: rgba(255,255,255,.8); text-decoration: none;
-    font-size: .9rem; font-weight: 500; letter-spacing: .06em;
-    text-transform: uppercase;
-    position: relative; padding-bottom: 4px;
-    transition: color .3s;
-  }
-  .nav-links a::after {
-    content:''; position:absolute; bottom:0; left:0;
-    width:0; height:2px; background: var(--gold);
-    transition: width .3s var(--ease);
-  }
-  .nav-links a:hover { color: var(--white); }
-  .nav-links a:hover::after { width: 100%; }
-  .nav-cta {
-    background: var(--gold); color: var(--navy);
-    border: none; padding: 11px 26px; border-radius: 50px;
-    font-size: .85rem; font-weight: 600; letter-spacing: .05em;
-    cursor: pointer; text-transform: uppercase;
-    transition: background .3s, transform .2s;
-  }
-  .nav-cta:hover { background: var(--gold-lt); transform: translateY(-1px); }
-
-  /* ── HERO ── */
-  #home {
-    min-height: 100vh;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-    padding: 120px 60px 80px;
-  }
-  .hero-bg {
-    position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.12) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 80% at 80% 80%, rgba(11,31,58,0) 0%, #0B1F3A 70%);
-  }
-  /* Grid lines background */
-  .hero-grid {
-    position: absolute; inset: 0; pointer-events: none;
-    background-image:
-      linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
-  /* Heartbeat SVG */
-  .heartbeat-wrap {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    height: 160px; overflow: hidden; pointer-events: none;
-  }
-  .heartbeat-line {
-    width: 100%; height: 100%;
-  }
-  .hb-path {
-    stroke: var(--gold);
-    stroke-width: 2;
-    fill: none;
-    opacity: .35;
-    stroke-dasharray: 2000;
-    stroke-dashoffset: 2000;
-    animation: drawLine 3s ease forwards 1s;
-  }
-  @keyframes drawLine {
-    to { stroke-dashoffset: 0; }
-  }
-
-  .hero-eyebrow {
-    font-size: .78rem; letter-spacing: .22em; text-transform: uppercase;
-    color: var(--gold); font-weight: 600; margin-bottom: 20px;
-    opacity: 0; animation: fadeUp .8s var(--ease) .3s forwards;
-  }
-  .hero-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 7vw, 6.2rem);
-    font-weight: 900; line-height: 1.05;
-    text-align: center; max-width: 900px;
-    opacity: 0; animation: fadeUp .9s var(--ease) .5s forwards;
-  }
-  .hero-title em { font-style: normal; color: var(--gold); }
-  .hero-sub {
-    margin-top: 28px; font-size: 1.1rem; color: var(--slate);
-    text-align: center; max-width: 560px; line-height: 1.7;
-    opacity: 0; animation: fadeUp .9s var(--ease) .75s forwards;
-  }
-  .hero-actions {
-    margin-top: 44px; display: flex; gap: 18px; flex-wrap: wrap; justify-content: center;
-    opacity: 0; animation: fadeUp .9s var(--ease) 1s forwards;
-  }
-  .btn-primary {
-    background: var(--gold); color: var(--navy);
-    padding: 16px 40px; border-radius: 50px;
-    font-weight: 700; font-size: 1rem; letter-spacing: .04em;
-    cursor: pointer; border: none; text-transform: uppercase;
-    transition: transform .25s, box-shadow .25s;
-    box-shadow: 0 0 0 0 rgba(201,168,76,.5);
-  }
-  .btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(201,168,76,.35);
-  }
-  .btn-ghost {
-    background: transparent; color: var(--white);
-    padding: 15px 38px; border-radius: 50px;
-    border: 1.5px solid rgba(255,255,255,.3);
-    font-size: 1rem; letter-spacing: .04em; cursor: pointer;
-    text-transform: uppercase; font-weight: 500;
-    transition: border-color .3s, color .3s;
-  }
-  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
-
-  /* Hero stats row */
-  .hero-stats {
-    display: flex; gap: 60px; margin-top: 72px; flex-wrap: wrap; justify-content: center;
-    opacity: 0; animation: fadeUp .9s var(--ease) 1.2s forwards;
-  }
-  .stat { text-align: center; }
-  .stat-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 2.6rem; font-weight: 900; color: var(--gold); line-height: 1;
-  }
-  .stat-label { font-size: .78rem; color: var(--slate); letter-spacing: .1em; text-transform: uppercase; margin-top: 6px; }
-
-  /* ── SCROLL DOWN indicator ── */
-  .scroll-down {
-    position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    opacity: 0; animation: fadeIn 1s ease 2s forwards;
-    cursor: pointer;
-  }
-  .scroll-down span { font-size: .7rem; letter-spacing: .15em; color: var(--slate); text-transform: uppercase; }
-  .scroll-arrow {
-    width: 24px; height: 24px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
-    transform: rotate(45deg); animation: bounce .9s ease infinite;
-  }
-  @keyframes bounce { 0%,100%{transform:rotate(45deg) translateY(0)} 50%{transform:rotate(45deg) translateY(6px)} }
-
-  /* ── SECTION COMMON ── */
-  section { padding: 120px 60px; position: relative; }
-  .section-eyebrow {
-    font-size: .72rem; letter-spacing: .22em; text-transform: uppercase;
-    color: var(--gold); font-weight: 600; margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    font-weight: 800; line-height: 1.15; max-width: 680px;
-  }
-  .section-desc { color: var(--slate); font-size: 1rem; line-height: 1.8; max-width: 560px; margin-top: 16px; }
-
-  /* ── ABOUT ── */
-  #about {
-    background: var(--dark2);
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
-  }
-  .about-visual {
-    position: relative; height: 440px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  /* Concentric ring pulse */
-  .rings {
-    position: absolute; width: 320px; height: 320px;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .ring {
-    position: absolute; border-radius: 50%;
-    border: 1.5px solid rgba(201,168,76,.22);
-    animation: ringPulse 3s ease-in-out infinite;
-  }
-  .ring:nth-child(1){ width:320px;height:320px;animation-delay:0s }
-  .ring:nth-child(2){ width:240px;height:240px;animation-delay:.5s }
-  .ring:nth-child(3){ width:160px;height:160px;animation-delay:1s }
-  @keyframes ringPulse {
-    0%,100%{ transform:scale(1); opacity:.4 }
-    50%{ transform:scale(1.05); opacity:.8 }
-  }
-  .shield-center {
-    width: 100px; height: 100px;
-    background: var(--gold);
-    clip-path: polygon(50% 0%,100% 25%,100% 70%,50% 100%,0% 70%,0% 25%);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 2.4rem;
-    animation: heartbeat 1.8s ease-in-out infinite;
-    position: relative; z-index: 1;
-  }
-  @keyframes heartbeat {
-    0%,100%{ transform:scale(1) }
-    14%{ transform:scale(1.12) }
-    28%{ transform:scale(1) }
-    42%{ transform:scale(1.08) }
-    70%{ transform:scale(1) }
-  }
-  .about-list { list-style: none; margin-top: 36px; display: flex; flex-direction: column; gap: 20px; }
-  .about-list li {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 18px 22px; background: rgba(255,255,255,.04);
-    border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0;
-    transition: background .3s;
-  }
-  .about-list li:hover { background: rgba(255,255,255,.08); }
-  .about-list .icon { font-size: 1.4rem; flex-shrink: 0; }
-  .about-list strong { display: block; font-weight: 600; margin-bottom: 4px; }
-  .about-list p { font-size: .88rem; color: var(--slate); line-height: 1.6; }
-
-  /* ── PRODUCTS ── */
-  #product { background: var(--mist); color: var(--navy); }
-  #product .section-title, #product .section-eyebrow { color: var(--navy); }
-  #product .section-eyebrow { color: var(--gold); }
-  #product .section-desc { color: #5a6e82; }
-  .products-header { display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 72px; }
-  .products-header .section-title { max-width: 100%; }
-  .cards-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; max-width: 1200px; margin: 0 auto;
-  }
-  .card {
-    background: var(--white);
-    border-radius: 20px; padding: 42px 36px;
-    border: 1.5px solid transparent;
-    box-shadow: 0 4px 24px rgba(11,31,58,.07);
-    cursor: pointer;
-    position: relative; overflow: hidden;
-    opacity: 0; transform: translateY(60px) scale(.97);
-    transition: opacity .7s var(--ease), transform .7s var(--ease), border-color .3s, box-shadow .3s;
-  }
-  .card.revealed { opacity: 1; transform: translateY(0) scale(1); }
-  .card:hover {
-    border-color: var(--gold);
-    box-shadow: 0 12px 48px rgba(201,168,76,.18);
-    transform: translateY(-6px) scale(1.01) !important;
-  }
-  .card::before {
-    content: ''; position: absolute; top:0; left:0; right:0; height:4px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-lt));
-    transform: scaleX(0); transform-origin: left;
-    transition: transform .4s var(--ease);
-  }
-  .card:hover::before { transform: scaleX(1); }
-  .card-icon {
-    width: 64px; height: 64px; border-radius: 16px;
-    background: linear-gradient(135deg, var(--navy), #1e3a5f);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.8rem; margin-bottom: 26px;
-    box-shadow: 0 4px 16px rgba(11,31,58,.2);
-  }
-  .card-tag {
-    display: inline-block; font-size: .68rem; font-weight: 600;
-    letter-spacing: .12em; text-transform: uppercase;
-    color: var(--gold); background: rgba(201,168,76,.12);
-    padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
-  }
-  .card h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.45rem; font-weight: 800; color: var(--navy);
-    margin-bottom: 12px; line-height: 1.2;
-  }
-  .card p { font-size: .9rem; color: #5a6e82; line-height: 1.7; margin-bottom: 24px; }
-  .card-price {
-    font-family: 'Playfair Display', serif;
-    font-size: 2rem; font-weight: 900; color: var(--navy);
-  }
-  .card-price sup { font-size: 1rem; vertical-align: top; margin-top: 8px; display: inline-block; }
-  .card-price sub { font-size: .75rem; font-weight: 400; color: #8a9aaa; font-family: 'Inter',sans-serif; }
-  .card-features { list-style: none; margin-top: 22px; display: flex; flex-direction: column; gap: 10px; }
-  .card-features li {
-    font-size: .85rem; color: #5a6e82;
-    display: flex; align-items: center; gap: 10px;
-  }
-  .card-features li::before {
-    content: '✓'; width: 20px; height: 20px; border-radius: 50%;
-    background: rgba(201,168,76,.15); color: var(--gold);
-    display: flex; align-items: center; justify-content: center;
-    font-size: .75rem; font-weight: 700; flex-shrink: 0;
-  }
-  .card-btn {
-    width: 100%; margin-top: 30px; padding: 14px;
-    background: var(--navy); color: var(--white);
-    border: none; border-radius: 12px;
-    font-size: .9rem; font-weight: 600; cursor: pointer;
-    transition: background .3s, transform .2s;
-    letter-spacing: .03em;
-  }
-  .card-btn:hover { background: var(--gold); color: var(--navy); transform: translateY(-1px); }
-  .card.featured {
-    background: linear-gradient(160deg, var(--navy), #1a3556);
-    color: var(--white); border-color: var(--gold);
-    box-shadow: 0 12px 48px rgba(11,31,58,.25);
-  }
-  .card.featured .card-tag { background: rgba(201,168,76,.25); }
-  .card.featured h3, .card.featured .card-price { color: var(--white); }
-  .card.featured p, .card.featured .card-features li { color: rgba(255,255,255,.65); }
-  .card.featured .card-btn { background: var(--gold); color: var(--navy); }
-  .card.featured .card-btn:hover { background: var(--gold-lt); }
-  .card.featured .card-features li::before { background: rgba(201,168,76,.25); }
-  .featured-badge {
-    position: absolute; top: 20px; right: 20px;
-    background: var(--gold); color: var(--navy);
-    font-size: .65rem; font-weight: 800; letter-spacing: .12em;
-    text-transform: uppercase; padding: 5px 12px; border-radius: 20px;
-  }
-
-  /* ── WHY US — Horizontal scroll strip ── */
-  #why {
-    background: var(--navy);
-    padding: 100px 0;
+  /* ── Product WOW Section ─────────────────────────────── */
+  #product {
+    padding: 0;
+    background: var(--dark);
+    position: relative;
     overflow: hidden;
   }
-  .why-header { padding: 0 60px; margin-bottom: 60px; }
-  .why-ticker-wrap { overflow: hidden; position: relative; }
-  .why-ticker-wrap::before, .why-ticker-wrap::after {
-    content:''; position:absolute; top:0; bottom:0; width:120px; z-index:2;
-    pointer-events:none;
-  }
-  .why-ticker-wrap::before { left:0; background: linear-gradient(90deg,var(--navy),transparent); }
-  .why-ticker-wrap::after  { right:0; background: linear-gradient(-90deg,var(--navy),transparent); }
-  .why-ticker {
-    display: flex; gap: 24px; width: max-content;
-    animation: tickerScroll 30s linear infinite;
-  }
-  .why-ticker:hover { animation-play-state: paused; }
-  @keyframes tickerScroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  .why-chip {
-    display: flex; align-items: center; gap: 14px;
-    padding: 22px 32px; border-radius: 16px;
-    background: rgba(255,255,255,.05); border: 1px solid rgba(201,168,76,.15);
-    white-space: nowrap; flex-shrink: 0;
-    transition: background .3s;
-  }
-  .why-chip:hover { background: rgba(201,168,76,.1); }
-  .why-chip .ic { font-size: 1.5rem; }
-  .why-chip .wt { font-size: .9rem; font-weight: 600; }
 
-  /* ── CONTACT ── */
-  #contact {
-    background: var(--dark2);
-    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start;
+  /* Subtle angular grid on dark bg */
+  #product::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 0;
+    background-image:
+      linear-gradient(rgba(196,150,12,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(196,150,12,0.04) 1px, transparent 1px);
+    background-size: 72px 72px;
+    pointer-events: none;
   }
-  .contact-form { display: flex; flex-direction: column; gap: 18px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .form-group { display: flex; flex-direction: column; gap: 8px; }
-  .form-group label { font-size: .8rem; letter-spacing: .08em; color: var(--slate); text-transform: uppercase; font-weight: 500; }
-  .form-group input, .form-group select, .form-group textarea {
-    background: rgba(255,255,255,.06); border: 1.5px solid rgba(255,255,255,.12);
-    border-radius: 12px; padding: 14px 18px;
-    color: var(--white); font-size: .95rem; font-family: 'Inter', sans-serif;
-    outline: none; transition: border-color .3s;
-    appearance: none;
+
+  .products-top {
+    position: relative; z-index: 1;
+    padding: 100px 60px 0;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 32px; flex-wrap: wrap;
   }
-  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  .products-top .section-title { color: var(--white); }
+  .products-top .section-desc  { color: rgba(255,255,255,0.55); }
+  .products-top .section-eyebrow { color: var(--gold); }
+
+  /* Category filter pills */
+  .product-filters {
+    display: flex; gap: 10px; flex-wrap: wrap;
+    margin: 32px 60px 0;
+    position: relative; z-index: 1;
+  }
+  .filter-pill {
+    padding: 8px 20px; border-radius: 50px; cursor: pointer;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1.5px solid rgba(196,150,12,0.35);
+    color: rgba(255,255,255,0.6);
+    background: transparent;
+    transition: all 0.25s var(--ease);
+  }
+  .filter-pill:hover,
+  .filter-pill.active {
+    background: var(--gold);
     border-color: var(--gold);
+    color: var(--dark);
   }
-  .form-group textarea { resize: vertical; min-height: 120px; }
-  .form-group select option { background: var(--navy); }
-  .form-submit {
-    background: var(--gold); color: var(--navy);
-    border: none; border-radius: 12px; padding: 16px 36px;
-    font-size: 1rem; font-weight: 700; cursor: pointer;
-    text-transform: uppercase; letter-spacing: .06em;
-    transition: background .3s, transform .2s;
-    align-self: flex-start;
+
+  /* ── TRACK WRAPPER ── */
+  .product-track-wrap {
+    position: relative; z-index: 1;
+    overflow: hidden;
+    padding: 48px 0 80px;
+    cursor: grab;
   }
-  .form-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
-  .contact-info { display: flex; flex-direction: column; gap: 32px; padding-top: 20px; }
-  .contact-info h3 {
+  .product-track-wrap:active { cursor: grabbing; }
+
+  /* Fade edges */
+  .product-track-wrap::before,
+  .product-track-wrap::after {
+    content: ''; position: absolute; top: 0; bottom: 80px; width: 120px; z-index: 2; pointer-events: none;
+  }
+  .product-track-wrap::before { left: 0; background: linear-gradient(90deg, var(--dark), transparent); }
+  .product-track-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--dark), transparent); }
+
+  .product-track {
+    display: flex; gap: 24px;
+    padding: 16px 80px 16px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    transition: transform 0.1s;
+  }
+  .product-track::-webkit-scrollbar { display: none; }
+
+  /* ── PRODUCT CARD ── */
+  .pcard {
+    flex: 0 0 300px; scroll-snap-align: start;
+    background: rgba(255,255,255,0.04);
+    border: 1.5px solid rgba(196,150,12,0.20);
+    border-radius: 24px; padding: 36px 28px;
+    position: relative; overflow: hidden;
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out),
+                box-shadow 0.3s, border-color 0.3s;
+    /* scroll-reveal: start hidden, staggered */
+    opacity: 0;
+    transform: translateY(60px) scale(0.94);
+  }
+  .pcard.revealed {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .pcard:hover {
+    box-shadow: 0 20px 60px rgba(196,150,12,0.20);
+    border-color: var(--gold);
+    transform: translateY(-8px) scale(1.02) !important;
+  }
+  /* Gold top bar */
+  .pcard::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.35s var(--ease);
+  }
+  .pcard:hover::before { transform: scaleX(1); }
+
+  /* Featured card */
+  .pcard--featured {
+    background: linear-gradient(160deg, rgba(196,150,12,0.18), rgba(196,150,12,0.06));
+    border-color: var(--gold);
+    box-shadow: 0 8px 40px rgba(196,150,12,0.18);
+  }
+  .pcard--featured .pcard-name { color: var(--white); }
+  .pcard--featured .pcard-price { color: var(--gold); }
+
+  .pcard-badge {
+    position: absolute; top: 16px; right: 16px;
+    background: var(--gold); color: var(--dark);
+    font-size: 0.60rem; font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
+  }
+
+  .pcard-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: rgba(196,150,12,0.14);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.55rem; margin-bottom: 20px;
+    border: 1px solid rgba(196,150,12,0.22);
+  }
+  .pcard-tag {
+    font-size: 0.64rem; font-weight: 600; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 6px; display: block;
+  }
+  .pcard-name {
     font-family: 'Playfair Display', serif;
-    font-size: 1.6rem; font-weight: 800;
+    font-size: 1.25rem; font-weight: 800; color: var(--white);
+    margin-bottom: 10px; line-height: 1.25;
   }
-  .contact-info p { color: var(--slate); line-height: 1.8; }
-  .info-items { display: flex; flex-direction: column; gap: 20px; margin-top: 8px; }
-  .info-item {
-    display: flex; align-items: flex-start; gap: 16px;
-    padding: 18px; background: rgba(255,255,255,.04); border-radius: 12px;
+  .pcard-desc {
+    font-size: 0.84rem; color: rgba(255,255,255,0.50); line-height: 1.7;
+    margin-bottom: 20px;
   }
-  .info-item .ic { font-size: 1.3rem; }
-  .info-item .it strong { display: block; font-weight: 600; margin-bottom: 3px; }
-  .info-item .it span { font-size: .88rem; color: var(--slate); }
+  .pcard-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 900; color: var(--gold-lt); line-height: 1;
+    margin-bottom: 18px;
+  }
+  .pcard-price sup { font-size: 0.9rem; vertical-align: top; margin-top: 5px; display: inline-block; }
+  .pcard-price sub { font-size: 0.70rem; font-family: 'Inter', sans-serif; font-weight: 400; color: rgba(255,255,255,0.35); }
 
-  /* ── FOOTER ── */
-  footer {
-    background: #070f1d; padding: 48px 60px 32px;
-    display: flex; flex-direction: column; gap: 32px;
+  .pcard-feat {
+    list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;
   }
-  .footer-top {
-    display: flex; justify-content: space-between; align-items: flex-start;
-    border-bottom: 1px solid rgba(255,255,255,.08); padding-bottom: 32px;
-    flex-wrap: wrap; gap: 32px;
+  .pcard-feat li {
+    font-size: 0.81rem; color: rgba(255,255,255,0.55);
+    display: flex; align-items: center; gap: 9px;
   }
-  .footer-brand p { color: var(--slate); font-size: .88rem; max-width: 300px; line-height: 1.7; margin-top: 12px; }
-  .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
-  .footer-col h4 { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: var(--gold); margin-bottom: 16px; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-col ul a { color: var(--slate); text-decoration: none; font-size: .88rem; transition: color .3s; }
-  .footer-col ul a:hover { color: var(--white); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-  .footer-bottom p { color: var(--slate); font-size: .8rem; }
-  .footer-bottom a { color: var(--slate); text-decoration: none; font-size: .8rem; }
-  .footer-bottom a:hover { color: var(--gold); }
+  .pcard-feat li::before {
+    content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.70rem; flex-shrink: 0;
+  }
+  .pcard-btn {
+    width: 100%; padding: 12px;
+    background: transparent; color: var(--gold);
+    border: 1.5px solid rgba(196,150,12,0.45);
+    border-radius: 10px; font-size: 0.85rem; font-weight: 600;
+    letter-spacing: 0.04em; cursor: pointer;
+    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
+  }
+  .pcard-btn:hover {
+    background: var(--gold); color: var(--dark);
+    border-color: var(--gold); transform: translateY(-1px);
+  }
+  .pcard--featured .pcard-btn {
+    background: var(--gold); color: var(--dark); border-color: var(--gold);
+  }
+  .pcard--featured .pcard-btn:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to   { opacity: 1; transform: translateY(0); }
+  /* Scroll indicator dots */
+  .product-nav {
+    display: flex; align-items: center; justify-content: center;
+    gap: 8px; padding-bottom: 48px; position: relative; z-index: 1;
   }
-  @keyframes fadeIn {
-    to { opacity: 1; }
+  .prod-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(255,255,255,0.18); cursor: pointer;
+    transition: background 0.3s, transform 0.3s, width 0.3s;
   }
-
-  /* Reveal on scroll */
-  .reveal {
-    opacity: 0; transform: translateY(50px);
-    transition: opacity .8s var(--ease), transform .8s var(--ease);
-  }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-left { opacity:0; transform: translateX(-60px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-  .reveal-left.visible { opacity:1; transform: translateX(0); }
-  .reveal-right { opacity:0; transform: translateX(60px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
-  .reveal-right.visible { opacity:1; transform: translateX(0); }
-
-  /* ── MOBILE ── */
-  @media (max-width: 900px) {
-    nav { padding: 18px 24px; }
-    nav.scrolled { padding: 12px 24px; }
-    .nav-links { display: none; }
-    section { padding: 80px 24px; }
-    #about { grid-template-columns: 1fr; gap: 40px; }
-    .cards-grid { grid-template-columns: 1fr; max-width: 460px; margin: 0 auto; }
-    #contact { grid-template-columns: 1fr; gap: 40px; }
-    .form-row { grid-template-columns: 1fr; }
-    .hero-stats { gap: 30px; }
-    .footer-top { flex-direction: column; }
-    footer { padding: 40px 24px 24px; }
+  .prod-dot.active {
+    background: var(--gold); transform: scale(1.3); width: 22px; border-radius: 4px;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  /* Scroll arrows */
+  .product-arrows {
+    display: flex; gap: 10px; align-self: flex-end;
+  }
+  .product-arrows button {
+    width: 42px; height: 42px; border-radius: 50%;
+    border: 1.5px solid rgba(196,150,12,0.35);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; color: rgba(255,255,255,0.7);
+    background: transparent; cursor: pointer;
+    transition: border-color 0.25s, background 0.25s, color 0.25s;
+  }
+  .product-arrows button:hover {
+    border-color: var(--gold); background: var(--gold); color: var(--dark);
+  }
+
+  /* ── WHY section on dark ── */
+  #why { background: rgba(38,55,70,0.5); }
+  #why .why-inner { padding: 80px 0; }
+  #why .why-header { padding: 0 60px; margin-bottom: 48px; }
+  #why .why-header .section-title { color: var(--white); }
+
+  /* ── About section ── */
+  #about { background: var(--white); }
+
+  /* ── Hero ── */
+  #home { background: var(--dark); }
+
+  /* ── Responsive overrides ── */
+  @media (max-width: 768px) {
+    .products-top { padding: 60px 24px 0; }
+    .product-filters { margin: 24px 24px 0; }
+    .product-track { padding: 12px 24px; }
+    .pcard { flex: 0 0 268px; }
+    #why .why-header { padding: 0 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ═══════════ NAV ═══════════ -->
-<nav id="nav">
-  <a class="nav-logo" href="#home">
-    <div class="logo-shield">L</div>
-    Life<span>Shield</span>
+<!-- ══════════════════════════════════════
+     NAVIGATION
+══════════════════════════════════════ -->
+<header id="nav">
+  <a class="nav-logo" href="#home" aria-label="FTL Insurance home">
+    <!-- Inline SVG icon (the geometric flower mark) -->
+    <svg width="34" height="34" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path fill="#C4950C" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
+    </svg>
+    <span>FTL <em>Insurance</em></span>
   </a>
-  <ul class="nav-links">
+
+  <ul class="nav-links" role="list">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#product">Product</a></li>
-    <li><a href="#contact">Contact Us</a></li>
+    <li><a href="#product">Products</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Get a Quote</button>
+
+  <a href="#contact" class="nav-cta">Get a Quote</a>
+
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile drawer -->
+<nav class="nav-drawer" id="drawer" aria-label="Mobile navigation">
+  <ul>
+    <li><a href="#home"    onclick="closeDrawer()">Home</a></li>
+    <li><a href="#about"   onclick="closeDrawer()">About</a></li>
+    <li><a href="#product" onclick="closeDrawer()">Products</a></li>
+    <li><a href="#why"     onclick="closeDrawer()">Why Us</a></li>
+    <li><a href="#contact" onclick="closeDrawer()">Contact</a></li>
+  </ul>
+  <a href="#contact" class="drawer-cta" onclick="closeDrawer()">Get a Free Quote</a>
 </nav>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section id="home">
-  <div class="hero-bg"></div>
-  <div class="hero-grid"></div>
 
-  <p class="hero-eyebrow">Trusted by 500,000+ families since 1998</p>
-  <h1 class="hero-title">
-    One Plan.<br>
-    <em>Infinite</em> Peace of Mind.
-  </h1>
-  <p class="hero-sub">
-    Life insurance that speaks clearly — no jargon, no surprises. Protect your family's future with coverage that fits your life today.
-  </p>
-  <div class="hero-actions">
-    <button class="btn-primary" onclick="document.getElementById('product').scrollIntoView({behavior:'smooth'})">Explore Plans</button>
-    <button class="btn-ghost" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">How It Works</button>
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="home" aria-label="Hero">
+  <div class="hero-bg-img" aria-hidden="true"></div>
+  <div class="hero-pattern" aria-hidden="true"></div>
+  <div class="hero-accent" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">Trusted by 250,000+ families across Cambodia</p>
+
+    <h1 class="hero-title">
+      Protect What<br>
+      Matters <em>Most.</em>
+    </h1>
+
+    <p class="hero-sub">
+      FTL Insurance gives you clear, honest coverage — no fine print traps, no surprise exclusions. One trusted partner for every stage of life.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#product" class="btn-primary">Explore Our Products</a>
+      <a href="#about"   class="btn-outline">How It Works</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num" id="sc1">0</div>
+        <div class="stat-label">Families Protected</div>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <div class="stat-num" id="sc2">0</div>
+        <div class="stat-label">Claims Settled</div>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <div class="stat-num" id="sc3">0</div>
+        <div class="stat-label">Years of Trust</div>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat">
+        <div class="stat-num" id="sc4">0</div>
+        <div class="stat-label">Satisfaction Rate</div>
+      </div>
+    </div>
   </div>
 
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num" id="c1">0</div><div class="stat-label">Families Protected</div></div>
-    <div class="stat"><div class="stat-num" id="c2">0</div><div class="stat-label">Claims Paid Out</div></div>
-    <div class="stat"><div class="stat-num" id="c3">0</div><div class="stat-label">Years of Trust</div></div>
-    <div class="stat"><div class="stat-num" id="c4">0</div><div class="stat-label">Satisfaction Rate</div></div>
-  </div>
-
-  <!-- Heartbeat line -->
-  <div class="heartbeat-wrap">
-    <svg class="heartbeat-line" viewBox="0 0 1440 160" preserveAspectRatio="none">
-      <path class="hb-path" d="M0,80 L120,80 L160,80 L180,20 L210,140 L240,10 L270,150 L300,80 L360,80 L400,80 L440,60 L460,100 L480,40 L500,120 L520,80 L560,80 L640,80 L680,80 L720,60 L740,100 L760,50 L780,130 L800,80 L840,80 L960,80 L1000,80 L1040,65 L1060,95 L1080,45 L1100,115 L1120,80 L1200,80 L1440,80"/>
-    </svg>
-  </div>
-
-  <div class="scroll-down" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+  <div class="scroll-cue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Scroll to about section">
     <span>Scroll</span>
-    <div class="scroll-arrow"></div>
+    <div class="scroll-cue-arrow" aria-hidden="true"></div>
   </div>
 </section>
 
-<!-- ═══════════ ABOUT ═══════════ -->
-<section id="about">
+
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
+<section id="about" aria-label="About FTL Insurance">
+  <!-- Visual side -->
   <div class="about-visual reveal-left">
-    <div class="rings">
+    <div class="rings-wrap" aria-hidden="true">
       <div class="ring"></div>
       <div class="ring"></div>
       <div class="ring"></div>
-      <div class="shield-center">🛡️</div>
+    </div>
+    <!-- FTL logo mark as the pulsing center -->
+    <div class="about-icon-center" aria-hidden="true">
+      <svg width="52" height="52" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#263746" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
+      </svg>
+    </div>
+
+    <!-- Floating chips -->
+    <div class="float-chip" aria-hidden="true">
+      <span class="chip-icon">🏆</span>
+      <div><div class="chip-val">A+</div><div class="chip-label">AM Best Rating</div></div>
+    </div>
+    <div class="float-chip" aria-hidden="true">
+      <span class="chip-icon">💰</span>
+      <div><div class="chip-val">48 hrs</div><div class="chip-label">Claim Payout</div></div>
+    </div>
+    <div class="float-chip" aria-hidden="true">
+      <span class="chip-icon">🛡️</span>
+      <div><div class="chip-val">25+</div><div class="chip-label">Years Operating</div></div>
     </div>
   </div>
-  <div class="about-content reveal-right">
-    <p class="section-eyebrow">Why LifeShield</p>
-    <h2 class="section-title">Protection that's built around <em style="font-style:normal;color:var(--gold)">your life</em></h2>
-    <p class="section-desc">We believe insurance should be simple, transparent, and genuinely useful. One glance — you see exactly what you're getting and why it matters.</p>
+
+  <!-- Text side -->
+  <div class="reveal-right">
+    <span class="section-eyebrow">Why FTL</span>
+    <h2 class="section-title">Insurance that puts <em>people first</em></h2>
+    <p class="section-desc">We believe every family deserves protection that's straightforward, affordable, and genuinely there when needed — not buried in exclusion clauses.</p>
+
     <ul class="about-list">
-      <li>
-        <span class="icon">⚡</span>
-        <div><strong>Instant Approval</strong><p>Get covered in under 10 minutes. No medical exams for plans up to $1M coverage.</p></div>
+      <li class="about-item">
+        <div class="about-item-icon">⚡</div>
+        <div>
+          <strong>Fast-Track Approval</strong>
+          <p>Get fully covered in under 15 minutes. No medical exam required for plans up to $500K.</p>
+        </div>
       </li>
-      <li>
-        <span class="icon">🔒</span>
-        <div><strong>Price Lock Guarantee</strong><p>Your premium never goes up — locked for the life of your policy, forever.</p></div>
+      <li class="about-item">
+        <div class="about-item-icon">🔒</div>
+        <div>
+          <strong>Premium Lock Guarantee</strong>
+          <p>Your rate is fixed for the life of your policy. No nasty surprises after year one.</p>
+        </div>
       </li>
-      <li>
-        <span class="icon">💰</span>
-        <div><strong>Guaranteed Payout</strong><p>100% of claims paid within 48 hours. No delays when your family needs it most.</p></div>
+      <li class="about-item">
+        <div class="about-item-icon">💬</div>
+        <div>
+          <strong>Real People, Real Support</strong>
+          <p>Dedicated Khmer-speaking advisors available 7 days a week — no bots, no queue music.</p>
+        </div>
       </li>
     </ul>
   </div>
 </section>
 
-<!-- ═══════════ PRODUCTS ═══════════ -->
-<section id="product">
-  <div class="products-header reveal">
-    <p class="section-eyebrow">Our Products</p>
-    <h2 class="section-title">Every plan, explained at a glance</h2>
-    <p class="section-desc" style="max-width:500px;margin:12px auto 0;">Choose the coverage that matches your life stage. Simple, clear, no hidden fees.</p>
+
+<!-- ══════════════════════════════════════
+     PRODUCTS — WOW SHOWCASE
+══════════════════════════════════════ -->
+<section id="product" aria-label="Insurance products">
+
+  <!-- Header row -->
+  <div class="products-top reveal">
+    <div class="products-top-left">
+      <span class="section-eyebrow">Our Products</span>
+      <h2 class="section-title">Every life stage.<br><em>Covered.</em></h2>
+      <p class="section-desc">Ten tailored insurance products — from your first job to your grandchildren's future. Drag to explore.</p>
+    </div>
+    <div class="product-arrows" aria-label="Scroll products">
+      <button id="arrowLeft"  aria-label="Scroll left">&#8592;</button>
+      <button id="arrowRight" aria-label="Scroll right">&#8594;</button>
+    </div>
   </div>
-  <div class="cards-grid">
-    <!-- Card 1 -->
-    <div class="card" style="transition-delay:.05s">
-      <div class="card-icon">🌱</div>
-      <span class="card-tag">Starter</span>
-      <h3>Term Life</h3>
-      <p>Straightforward protection for a fixed period. Ideal for young families or first-time buyers starting their coverage journey.</p>
-      <div class="card-price"><sup>$</sup>18<sub>/month</sub></div>
-      <ul class="card-features">
-        <li>Up to $500K coverage</li>
-        <li>10, 20, or 30-year terms</li>
-        <li>No medical exam needed</li>
-        <li>Cancel anytime, no penalty</li>
-      </ul>
-      <button class="card-btn">Get This Plan →</button>
+
+  <!-- Filter pills -->
+  <div class="product-filters" role="group" aria-label="Filter by category">
+    <button class="filter-pill active" data-filter="all">All Products</button>
+    <button class="filter-pill" data-filter="life">Life</button>
+    <button class="filter-pill" data-filter="health">Health</button>
+    <button class="filter-pill" data-filter="wealth">Wealth</button>
+    <button class="filter-pill" data-filter="property">Property</button>
+  </div>
+
+  <!-- Draggable track -->
+  <div class="product-track-wrap" id="trackWrap">
+    <div class="product-track" id="productTrack" role="list">
+
+      <!-- Card 1 -->
+      <article class="pcard" data-category="life" role="listitem">
+        <div class="pcard-icon">🌱</div>
+        <span class="pcard-tag">Life · Starter</span>
+        <h3 class="pcard-name">Term Life</h3>
+        <p class="pcard-desc">Fixed-period protection at the lowest premium. Ideal for young families just starting out.</p>
+        <div class="pcard-price"><sup>$</sup>18<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Up to $500K coverage</li>
+          <li>10, 20, or 30-year terms</li>
+          <li>No medical exam needed</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 2 — FEATURED -->
+      <article class="pcard pcard--featured" data-category="life" role="listitem">
+        <div class="pcard-badge">Most Popular</div>
+        <div class="pcard-icon">⭐</div>
+        <span class="pcard-tag">Life · Recommended</span>
+        <h3 class="pcard-name">Whole Life</h3>
+        <p class="pcard-desc">Lifetime coverage with a tax-deferred cash value that grows year after year.</p>
+        <div class="pcard-price"><sup>$</sup>54<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Lifelong — never expires</li>
+          <li>Cash value accumulation</li>
+          <li>Up to $2M coverage</li>
+          <li>Annual dividends paid</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="pcard" data-category="life" role="listitem">
+        <div class="pcard-icon">👑</div>
+        <span class="pcard-tag">Life · Premium</span>
+        <h3 class="pcard-name">Universal Life</h3>
+        <p class="pcard-desc">Flexible premiums, investment-linked growth, and adjustable coverage as life evolves.</p>
+        <div class="pcard-price"><sup>$</sup>120<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Flexible premium payments</li>
+          <li>Investment component</li>
+          <li>Unlimited coverage ceiling</li>
+          <li>Dedicated wealth advisor</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="pcard" data-category="health" role="listitem">
+        <div class="pcard-icon">🏥</div>
+        <span class="pcard-tag">Health · Essential</span>
+        <h3 class="pcard-name">MediCare Basic</h3>
+        <p class="pcard-desc">Covers hospitalisation, surgery, and emergency care so a medical bill never derails your finances.</p>
+        <div class="pcard-price"><sup>$</sup>32<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>In & out-patient coverage</li>
+          <li>50+ partner hospitals</li>
+          <li>Cashless admission</li>
+          <li>24/7 telemedicine access</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="pcard" data-category="health" role="listitem">
+        <div class="pcard-icon">💊</div>
+        <span class="pcard-tag">Health · Plus</span>
+        <h3 class="pcard-name">MediCare Plus</h3>
+        <p class="pcard-desc">Extended coverage including specialist consultations, dental, and optical benefits.</p>
+        <div class="pcard-price"><sup>$</sup>68<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Everything in Basic</li>
+          <li>Dental & optical cover</li>
+          <li>Annual health screening</li>
+          <li>Global emergency cover</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="pcard" data-category="wealth" role="listitem">
+        <div class="pcard-icon">📈</div>
+        <span class="pcard-tag">Wealth · Growth</span>
+        <h3 class="pcard-name">Investment-Linked</h3>
+        <p class="pcard-desc">Combine life protection with market-linked returns. Your premium works harder, not just longer.</p>
+        <div class="pcard-price"><sup>$</sup>85<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Choice of 8 fund options</li>
+          <li>Switch funds anytime</li>
+          <li>Life cover from Day 1</li>
+          <li>Quarterly statements</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 7 -->
+      <article class="pcard" data-category="wealth" role="listitem">
+        <div class="pcard-icon">🎓</div>
+        <span class="pcard-tag">Wealth · Education</span>
+        <h3 class="pcard-name">EduSave Plan</h3>
+        <p class="pcard-desc">Save for your child's university fees with guaranteed payouts at key education milestones.</p>
+        <div class="pcard-price"><sup>$</sup>45<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Guaranteed maturity payout</li>
+          <li>Waiver of premium on death</li>
+          <li>Bonus on policy anniversary</li>
+          <li>Flexible payout dates</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 8 -->
+      <article class="pcard" data-category="property" role="listitem">
+        <div class="pcard-icon">🏠</div>
+        <span class="pcard-tag">Property · Home</span>
+        <h3 class="pcard-name">Home Protect</h3>
+        <p class="pcard-desc">Covers your home and contents against fire, flood, theft, and accidental damage.</p>
+        <div class="pcard-price"><sup>$</sup>22<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Building & contents cover</li>
+          <li>Flood & fire protection</li>
+          <li>Theft & vandalism</li>
+          <li>Alternative accommodation</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 9 -->
+      <article class="pcard" data-category="property" role="listitem">
+        <div class="pcard-icon">🚗</div>
+        <span class="pcard-tag">Property · Auto</span>
+        <h3 class="pcard-name">AutoShield</h3>
+        <p class="pcard-desc">Comprehensive motor insurance with accident, theft, third-party, and roadside rescue.</p>
+        <div class="pcard-price"><sup>$</sup>28<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Comprehensive cover</li>
+          <li>24/7 roadside assistance</li>
+          <li>Windscreen replacement</li>
+          <li>No-claim bonus up to 55%</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- Card 10 -->
+      <article class="pcard" data-category="life" role="listitem">
+        <div class="pcard-icon">🌍</div>
+        <span class="pcard-tag">Life · Senior</span>
+        <h3 class="pcard-name">Legacy Plan</h3>
+        <p class="pcard-desc">Designed for ages 50–75. Leave a guaranteed inheritance — no medical questions asked.</p>
+        <div class="pcard-price"><sup>$</sup>75<sub>/mo</sub></div>
+        <ul class="pcard-feat">
+          <li>Guaranteed acceptance</li>
+          <li>Coverage up to $250K</li>
+          <li>Funeral cost advance</li>
+          <li>Fixed premium for life</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+    </div><!-- /product-track -->
+  </div><!-- /track-wrap -->
+
+  <!-- Dot indicators -->
+  <div class="product-nav" id="productNav" role="tablist" aria-label="Product navigation dots"></div>
+
+</section>
+
+
+<!-- ══════════════════════════════════════
+     WHY US — Ticker Strip
+══════════════════════════════════════ -->
+<section id="why" aria-label="Why choose FTL">
+  <div class="why-inner">
+    <div class="why-header reveal">
+      <span class="section-eyebrow">What Sets Us Apart</span>
+      <h2 class="section-title" style="color:var(--white)">Why 250,000 families chose <em style="color:var(--gold);font-style:normal">FTL</em></h2>
     </div>
-    <!-- Card 2 — FEATURED -->
-    <div class="card featured" style="transition-delay:.15s">
-      <div class="featured-badge">Most Popular</div>
-      <div class="card-icon" style="background:rgba(201,168,76,.25)">⭐</div>
-      <span class="card-tag">Recommended</span>
-      <h3>Whole Life</h3>
-      <p>Lifelong coverage with a cash value that grows tax-deferred — protection today that builds wealth for tomorrow.</p>
-      <div class="card-price"><sup>$</sup>54<sub>/month</sub></div>
-      <ul class="card-features">
-        <li>Lifetime coverage, never expires</li>
-        <li>Cash value accumulation</li>
-        <li>Up to $2M coverage</li>
-        <li>Dividends paid annually</li>
-      </ul>
-      <button class="card-btn">Get This Plan →</button>
-    </div>
-    <!-- Card 3 -->
-    <div class="card" style="transition-delay:.25s">
-      <div class="card-icon">👑</div>
-      <span class="card-tag">Premium</span>
-      <h3>Universal Life</h3>
-      <p>Ultimate flexibility — adjust your coverage and premiums as your life evolves, with investment-linked growth potential.</p>
-      <div class="card-price"><sup>$</sup>120<sub>/month</sub></div>
-      <ul class="card-features">
-        <li>Flexible premium payments</li>
-        <li>Investment component included</li>
-        <li>Unlimited coverage ceiling</li>
-        <li>Dedicated wealth advisor</li>
-      </ul>
-      <button class="card-btn">Get This Plan →</button>
+
+    <div class="ticker-wrap" aria-hidden="true">
+      <div class="ticker" id="whyTicker"></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ WHY US — Ticker ═══════════ -->
-<section id="why">
-  <div class="why-header reveal">
-    <p class="section-eyebrow">What Sets Us Apart</p>
-    <h2 class="section-title">Reasons 500,000 families chose LifeShield</h2>
-  </div>
-  <div class="why-ticker-wrap">
-    <div class="why-ticker" id="ticker">
-      <!-- duplicated for infinite scroll -->
-    </div>
-  </div>
-</section>
 
-<!-- ═══════════ CONTACT ═══════════ -->
-<section id="contact">
-  <div class="reveal-left">
-    <p class="section-eyebrow">Contact Us</p>
-    <h2 class="section-title">Talk to a real person — not a bot</h2>
-    <div class="contact-info">
-      <p>Our advisors are ready to help you find the right plan. No pressure, just clarity.</p>
-      <div class="info-items">
-        <div class="info-item"><span class="ic">📞</span><div class="it"><strong>Call Us</strong><span>+1 800 SHIELD (1-800-744-353)</span></div></div>
-        <div class="info-item"><span class="ic">✉️</span><div class="it"><strong>Email</strong><span>hello@lifeshield.com</span></div></div>
-        <div class="info-item"><span class="ic">📍</span><div class="it"><strong>Head Office</strong><span>88 Insurance Plaza, New York, NY 10001</span></div></div>
-        <div class="info-item"><span class="ic">🕐</span><div class="it"><strong>Hours</strong><span>Mon–Fri 8AM – 8PM · Sat 9AM – 5PM</span></div></div>
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section id="contact" aria-label="Contact FTL Insurance">
+  <!-- Left: info -->
+  <div class="contact-info-col reveal-left">
+    <span class="section-eyebrow">Get in Touch</span>
+    <h2 class="section-title">Talk to a real advisor — not a chatbot</h2>
+    <p class="sub">Our team speaks Khmer and English. No pressure, no jargon — just honest guidance to find the right plan for you.</p>
+
+    <div class="info-items">
+      <div class="info-item">
+        <span class="ii-icon">📞</span>
+        <div>
+          <strong>Call Us</strong>
+          <span>023 999 888 (Phnom Penh)</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="ii-icon">✉️</span>
+        <div>
+          <strong>Email</strong>
+          <span>hello@ftlinsurance.com.kh</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="ii-icon">📍</span>
+        <div>
+          <strong>Head Office</strong>
+          <span>FTL Tower, Norodom Blvd, Phnom Penh 12301</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="ii-icon">🕐</span>
+        <div>
+          <strong>Opening Hours</strong>
+          <span>Mon–Fri 8AM–6PM · Sat 9AM–12PM</span>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Right: form -->
   <div class="reveal-right">
-    <p class="section-eyebrow" style="margin-bottom:24px">Get a Free Quote</p>
+    <span class="section-eyebrow" style="margin-bottom:20px;display:block">Free Consultation</span>
     <div class="contact-form">
       <div class="form-row">
-        <div class="form-group"><label>First Name</label><input type="text" placeholder="John"/></div>
-        <div class="form-group"><label>Last Name</label><input type="text" placeholder="Doe"/></div>
+        <div class="form-group">
+          <label for="fname">First Name</label>
+          <input id="fname" type="text" placeholder="Sokha"/>
+        </div>
+        <div class="form-group">
+          <label for="lname">Last Name</label>
+          <input id="lname" type="text" placeholder="Chan"/>
+        </div>
       </div>
-      <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@example.com"/></div>
-      <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+1 (555) 000-0000"/></div>
       <div class="form-group">
-        <label>Plan Interest</label>
-        <select>
-          <option value="">Select a plan...</option>
+        <label for="email">Email Address</label>
+        <input id="email" type="email" placeholder="sokha@example.com"/>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone Number</label>
+        <input id="phone" type="tel" placeholder="+855 12 000 000"/>
+      </div>
+      <div class="form-group">
+        <label for="plan">Product Interest</label>
+        <select id="plan">
+          <option value="">Select a product…</option>
           <option>Term Life Insurance</option>
           <option>Whole Life Insurance</option>
           <option>Universal Life Insurance</option>
+          <option>MediCare Basic</option>
+          <option>MediCare Plus</option>
+          <option>Investment-Linked Plan</option>
+          <option>EduSave Plan</option>
+          <option>Home Protect</option>
+          <option>AutoShield</option>
+          <option>Legacy Plan</option>
         </select>
       </div>
-      <div class="form-group"><label>Message (optional)</label><textarea placeholder="Tell us about your coverage needs..."></textarea></div>
-      <button class="form-submit">Send My Request →</button>
+      <div class="form-group">
+        <label for="message">Message (optional)</label>
+        <textarea id="message" placeholder="Tell us about your needs or any questions you have…"></textarea>
+      </div>
+      <button class="form-submit" type="button">Send My Request →</button>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ FOOTER ═══════════ -->
+
+<!-- ══════════════════════════════════════
+     FOOTER
+══════════════════════════════════════ -->
 <footer>
   <div class="footer-top">
+    <!-- Brand -->
     <div class="footer-brand">
-      <a class="nav-logo" href="#home" style="text-decoration:none;">
-        <div class="logo-shield">L</div>Life<span style="color:var(--gold)">Shield</span>
-      </a>
-      <p>Protecting families across America since 1998. Licensed in all 50 states. A+ rated by AM Best.</p>
+      <div class="footer-logo">
+        <!-- Full FTL wordmark logo, inverted white -->
+        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" aria-label="FTL Insurance" style="height:38px;width:auto;filter:brightness(0) invert(1)">
+          <g>
+            <path fill="#c4950c" d="M152.66,247.9v22.33c0,3.8.21,6.61.64,8.42.43,1.81,1.24,3.33,2.43,4.56,1.04,1.08,2.27,1.87,3.68,2.38,1.41.5,3.21.81,5.42.92v1.29h-37.01v-1.29c1.85,0,3.61-.29,5.27-.87,1.66-.58,2.95-1.35,3.88-2.32,1.08-1.16,1.85-2.74,2.32-4.76.46-2.01.69-4.79.69-8.34v-41.24c0-2.39-.14-4.87-.41-7.44-.39-3.28-2.05-5.72-4.98-7.33-1.62-.86-3.88-1.36-6.78-1.51v-1.29h60.52l1.68,18.18-1.33.28c-.97-2.83-1.85-4.96-2.66-6.38-1.82-3.25-4.36-5.76-7.64-7.55-1.89-1.04-4.07-1.77-6.54-2.18-2.47-.41-5.87-.62-10.19-.62h-8.98v33.01h2.32c6.83,0,11.79-1.47,14.88-4.42,1.35-1.27,2.37-2.77,3.07-4.5.69-1.74,1.16-4,1.39-6.8l1.33.06-.35,33.91h-1.39c-.43-3.81-1.15-6.74-2.17-8.81-1.02-2.07-2.58-3.74-4.66-5.01-1.55-.93-3.45-1.61-5.7-2.04-2.26-.43-5.16-.64-8.72-.64Z"/>
+            <path fill="#c4950c" d="M437.85,257.36c-.15,1.83-.23,3.15-.23,3.97,0,3.24.49,6.42,1.47,9.51.98,3.1,2.32,5.67,4.01,7.72,1.73,2.09,3.88,3.73,6.44,4.92,2.56,1.19,5.24,1.79,8.05,1.79,2.08,0,4.05-.34,5.91-1.01,1.87-.67,3.41-1.6,4.65-2.8,1.39-1.31,2.58-3.39,3.58-6.27l1.22.39c-1,4.37-3.16,7.66-6.46,9.88-3.3,2.22-7.69,3.33-13.18,3.33-4.75,0-8.82-.73-12.22-2.18-3.4-1.46-6.27-3.69-8.63-6.72-3.28-4.22-4.92-9.4-4.92-15.55,0-8.39,3.11-14.98,9.32-19.75,4.52-3.47,9.67-5.2,15.46-5.2,3.09,0,5.95.53,8.57,1.6,2.63,1.06,4.84,2.6,6.66,4.62,2.82,3.13,4.23,7.05,4.23,11.75h-33.94ZM463.1,255.18c-.27-3.73-.98-6.6-2.13-8.62-1.04-1.83-2.42-3.27-4.15-4.34-1.73-1.06-3.57-1.6-5.53-1.6-3.3,0-6.2,1.38-8.68,4.14-2.48,2.76-3.95,6.23-4.41,10.41h24.9Z"/>
+          </g>
+        </svg>
+      </div>
+      <p>Licensed insurer in Cambodia since 1999. Regulated by the Insurance Regulator of Cambodia. All products subject to policy terms.</p>
     </div>
-    <div class="footer-links">
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul>
-          <li><a href="#about">About Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Press</a></li>
-          <li><a href="#">Blog</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Products</h4>
-        <ul>
-          <li><a href="#product">Term Life</a></li>
-          <li><a href="#product">Whole Life</a></li>
-          <li><a href="#product">Universal Life</a></li>
-          <li><a href="#">Riders & Add-ons</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Support</h4>
-        <ul>
-          <li><a href="#">File a Claim</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#contact">Contact Us</a></li>
-          <li><a href="#">Find an Agent</a></li>
-        </ul>
-      </div>
+
+    <!-- Link columns -->
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About FTL</a></li>
+        <li><a href="#">Leadership</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press Room</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="#product">Life Insurance</a></li>
+        <li><a href="#product">Health Insurance</a></li>
+        <li><a href="#product">Wealth Plans</a></li>
+        <li><a href="#product">Property Cover</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">File a Claim</a></li>
+        <li><a href="#">Find an Agent</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+      </ul>
     </div>
   </div>
+
   <div class="footer-bottom">
-    <p>© 2026 LifeShield Insurance. All rights reserved.</p>
-    <div style="display:flex;gap:20px;">
+    <span>© 2026 FTL Insurance Co., Ltd. All rights reserved.</span>
+    <div class="footer-bottom-links">
       <a href="#">Privacy Policy</a>
       <a href="#">Terms of Service</a>
       <a href="#">Cookie Settings</a>
@@ -744,83 +774,261 @@
   </div>
 </footer>
 
-<!-- ═══════════ SCRIPTS ═══════════ -->
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
 <script>
-/* ── Nav scroll effect ── */
+/* ──────────────────────────────────────
+   1. NAV: scroll effect + active links
+──────────────────────────────────────── */
 const nav = document.getElementById('nav');
+const sections = document.querySelectorAll('section[id], div[id="home"]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+  // active link
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+
+/* ──────────────────────────────────────
+   2. MOBILE DRAWER
+──────────────────────────────────────── */
+const hamburger = document.getElementById('hamburger');
+const drawer    = document.getElementById('drawer');
+function closeDrawer() {
+  hamburger.classList.remove('open');
+  drawer.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+hamburger.addEventListener('click', () => {
+  const open = hamburger.classList.toggle('open');
+  drawer.classList.toggle('open', open);
+  hamburger.setAttribute('aria-expanded', String(open));
+});
+document.addEventListener('click', e => {
+  if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
 });
 
-/* ── Animated Counters ── */
-function animateCounter(el, end, suffix = '', duration = 2000) {
-  let start = 0;
-  const step = end / (duration / 16);
-  const timer = setInterval(() => {
-    start += step;
-    if (start >= end) { start = end; clearInterval(timer); }
-    el.textContent = Math.floor(start).toLocaleString() + suffix;
-  }, 16);
+
+/* ──────────────────────────────────────
+   3. COUNTER ANIMATION (hero stats)
+──────────────────────────────────────── */
+function countUp(el, target, suffix, duration) {
+  let start = null;
+  function step(ts) {
+    if (!start) start = ts;
+    const pct = Math.min((ts - start) / duration, 1);
+    const val = Math.floor(pct * target);
+    el.textContent = val.toLocaleString() + suffix;
+    if (pct < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
 let countersRun = false;
-const counterSection = document.getElementById('home');
-const counterObs = new IntersectionObserver(entries => {
+new IntersectionObserver(entries => {
   if (entries[0].isIntersecting && !countersRun) {
     countersRun = true;
     setTimeout(() => {
-      animateCounter(document.getElementById('c1'), 500000, '+');
-      animateCounter(document.getElementById('c2'), 2, 'B+');
-      animateCounter(document.getElementById('c3'), 27, '+');
-      animateCounter(document.getElementById('c4'), 99, '%');
-    }, 1400);
+      countUp(document.getElementById('sc1'), 250000, '+',  2000);
+      countUp(document.getElementById('sc2'), 98,     '%',  1800);
+      countUp(document.getElementById('sc3'), 25,     '+',  1600);
+      countUp(document.getElementById('sc4'), 99,     '%',  1800);
+    }, 1200);
   }
-}, { threshold: .3 });
-counterObs.observe(counterSection);
+}, { threshold: 0.4 }).observe(document.getElementById('home'));
 
-/* ── Scroll reveal ── */
+
+/* ──────────────────────────────────────
+   4. SCROLL REVEAL — resets on scroll up
+──────────────────────────────────────── */
 const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       e.target.classList.add('visible');
-      revealObs.unobserve(e.target);
+    } else {
+      // reset when scrolled back above the element
+      if (e.boundingClientRect.top > 0) {
+        e.target.classList.remove('visible');
+      }
     }
   });
-}, { threshold: .15 });
+}, { threshold: 0.15 });
 revealEls.forEach(el => revealObs.observe(el));
 
-/* ── Product card pop-in ── */
-const cards = document.querySelectorAll('.card');
+
+/* ──────────────────────────────────────
+   5. PRODUCT CARDS — WOW reveal + reset
+──────────────────────────────────────── */
+const track    = document.getElementById('productTrack');
+const allCards = Array.from(track.querySelectorAll('.pcard'));
+const navDots  = document.getElementById('productNav');
+
+// Build dots
+function buildDots() {
+  navDots.innerHTML = '';
+  const visibleCards = allCards.filter(c => c.style.display !== 'none');
+  visibleCards.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className = 'prod-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', `Go to product ${i + 1}`);
+    dot.addEventListener('click', () => {
+      const cards = allCards.filter(c => c.style.display !== 'none');
+      if (cards[i]) {
+        cards[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+      }
+    });
+    navDots.appendChild(dot);
+  });
+}
+buildDots();
+
+// Update active dot on scroll
+function updateDots() {
+  const cards = allCards.filter(c => c.style.display !== 'none');
+  const dots  = navDots.querySelectorAll('.prod-dot');
+  const trackLeft = track.getBoundingClientRect().left;
+  let closest = 0, minDist = Infinity;
+  cards.forEach((c, i) => {
+    const dist = Math.abs(c.getBoundingClientRect().left - trackLeft);
+    if (dist < minDist) { minDist = dist; closest = i; }
+  });
+  dots.forEach((d, i) => d.classList.toggle('active', i === closest));
+}
+track.addEventListener('scroll', updateDots, { passive: true });
+
+// Card scroll-reveal (resets on scroll up) — uses IntersectionObserver
 const cardObs = new IntersectionObserver(entries => {
-  entries.forEach((e, i) => {
+  entries.forEach(e => {
     if (e.isIntersecting) {
-      setTimeout(() => e.target.classList.add('revealed'), e.target.style.transitionDelay ? 0 : 0);
-      cardObs.unobserve(e.target);
+      // stagger by card index
+      const idx = allCards.indexOf(e.target);
+      setTimeout(() => e.target.classList.add('revealed'), idx * 60);
+    } else {
+      // reset if track scrolled back (card left the left side)
+      e.target.classList.remove('revealed');
     }
   });
-}, { threshold: .1 });
-cards.forEach(c => cardObs.observe(c));
+}, {
+  root: track,         // observe within the scrollable track
+  threshold: 0.1
+});
+allCards.forEach(c => cardObs.observe(c));
 
-/* ── WHY ticker content ── */
+// Also trigger when the section enters viewport (page scroll)
+const sectionObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      // Stagger all currently visible cards
+      allCards.filter(c => c.style.display !== 'none').forEach((c, i) => {
+        setTimeout(() => c.classList.add('revealed'), i * 80 + 100);
+      });
+    } else if (e.boundingClientRect.top > 0) {
+      // Scrolled back above section — reset all
+      allCards.forEach(c => c.classList.remove('revealed'));
+    }
+  });
+}, { threshold: 0.05 });
+sectionObs.observe(document.getElementById('product'));
+
+
+// Arrow nav
+document.getElementById('arrowLeft').addEventListener('click', () => {
+  track.scrollBy({ left: -340, behavior: 'smooth' });
+});
+document.getElementById('arrowRight').addEventListener('click', () => {
+  track.scrollBy({ left: 340, behavior: 'smooth' });
+});
+
+// Drag to scroll
+let isDragging = false, startX, scrollLeft;
+track.addEventListener('mousedown', e => {
+  isDragging = true; startX = e.pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft; track.style.cursor = 'grabbing';
+});
+document.addEventListener('mouseup', () => { isDragging = false; track.style.cursor = 'grab'; });
+document.addEventListener('mousemove', e => {
+  if (!isDragging) return;
+  e.preventDefault();
+  track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX);
+});
+
+// Touch swipe
+let touchStartX = 0;
+track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+track.addEventListener('touchmove', e => {
+  const diff = touchStartX - e.touches[0].clientX;
+  track.scrollLeft += diff * 0.6;
+  touchStartX = e.touches[0].clientX;
+}, { passive: true });
+
+
+/* ──────────────────────────────────────
+   6. FILTER PILLS
+──────────────────────────────────────── */
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    const filter = pill.dataset.filter;
+    allCards.forEach(c => {
+      const show = filter === 'all' || c.dataset.category === filter;
+      c.style.display = show ? '' : 'none';
+      if (!show) c.classList.remove('revealed');
+    });
+    track.scrollLeft = 0;
+    buildDots();
+    // Re-stagger visible cards
+    const visible = allCards.filter(c => c.style.display !== 'none');
+    visible.forEach((c, i) => {
+      setTimeout(() => c.classList.add('revealed'), i * 80 + 50);
+    });
+  });
+});
+
+
+/* ──────────────────────────────────────
+   7. WHY US TICKER
+──────────────────────────────────────── */
 const reasons = [
-  { ic:'⚡', t:'10-Minute Approval' },
-  { ic:'🔒', t:'Price Lock Forever' },
-  { ic:'💸', t:'48-Hour Claim Payout' },
-  { ic:'🤝', t:'No Hidden Fees Ever' },
-  { ic:'📱', t:'Manage 100% Online' },
-  { ic:'🏆', t:'A+ AM Best Rating' },
-  { ic:'👨‍👩‍👧', t:'Family Policy Bundles' },
-  { ic:'🌍', t:'Global Coverage' },
-  { ic:'📊', t:'Real-Time Dashboard' },
-  { ic:'🎓', t:'Free Financial Advisor' },
+  { ic: '⚡', t: '15-Minute Approval'      },
+  { ic: '🔒', t: 'Premium Lock for Life'   },
+  { ic: '💸', t: '48-Hour Claim Payout'    },
+  { ic: '🤝', t: 'No Hidden Fees, Ever'    },
+  { ic: '📱', t: 'Manage 100% Online'      },
+  { ic: '🏆', t: 'A+ AM Best Rating'       },
+  { ic: '👨‍👩‍👧', t: 'Family Bundle Discounts' },
+  { ic: '🌍', t: 'Global Emergency Cover'  },
+  { ic: '📊', t: 'Real-Time Dashboard'     },
+  { ic: '🎓', t: 'Free Financial Advisor'  },
+  { ic: '🇰🇭', t: 'Khmer-Speaking Support' },
+  { ic: '💼', t: 'Group Corporate Plans'   },
 ];
-const ticker = document.getElementById('ticker');
-// double for infinite scroll
+const ticker = document.getElementById('whyTicker');
 [...reasons, ...reasons].forEach(r => {
   const chip = document.createElement('div');
-  chip.className = 'why-chip';
-  chip.innerHTML = `<span class="ic">${r.ic}</span><span class="wt">${r.t}</span>`;
+  chip.className = 't-chip';
+  chip.innerHTML = `<span class="t-ic">${r.ic}</span><span class="t-txt">${r.t}</span>`;
   ticker.appendChild(chip);
+});
+
+
+/* ──────────────────────────────────────
+   8. SCROLL CUE keyboard support
+──────────────────────────────────────── */
+document.querySelector('.scroll-cue')?.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
+  }
 });
 </script>
 </body>

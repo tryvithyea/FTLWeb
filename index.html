@@ -1,264 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>FTL Insurance — Coverage You Can Trust</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="stylesheet" href="style.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FTL Insurance — Protection for Every Stage of Life</title>
+  <meta name="description" content="FTL Insurance offers life, health, wealth and property coverage across Cambodia. Honest, affordable, always there when it matters." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 
-<!-- Page-specific overrides only — base design lives in style.css -->
-<style>
-  /* ── Product WOW Section ─────────────────────────────── */
-  #product {
-    padding: 0;
-    background: var(--dark);
-    position: relative;
-    overflow: hidden;
-  }
+  <!--
+    Supplemental styles for elements not covered by style.css.
+    Rules here either:
+    - Add new components (filter pills)
+    - Override #product background to dark (style.css default is --off-white)
+    - Retheme .pcard for the dark product section
+    All other classes (.reveal, .pcard, .ticker, etc.) come from style.css.
+  -->
+  <style>
+    /* ── #product: dark themed section for WOW contrast ── */
+    #product {
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    #product::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(196,150,12,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196,150,12,.04) 1px, transparent 1px);
+      background-size: 68px 68px;
+    }
+    #product .products-top,
+    #product .product-filters,
+    #product .product-nav { position: relative; z-index: 1; }
+    #product .products-top { padding-top: 100px; }
+    #product .section-title { color: var(--white); }
+    #product .section-desc  { color: rgba(255,255,255,.55); }
 
-  /* Subtle angular grid on dark bg */
-  #product::before {
-    content: '';
-    position: absolute; inset: 0; z-index: 0;
-    background-image:
-      linear-gradient(rgba(196,150,12,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(196,150,12,0.04) 1px, transparent 1px);
-    background-size: 72px 72px;
-    pointer-events: none;
-  }
+    /* Cards rethemed for dark bg */
+    .pcard {
+      background: rgba(255,255,255,.045);
+      border-color: rgba(196,150,12,.22);
+    }
+    .pcard:hover {
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 20px 60px rgba(196,150,12,.22);
+    }
+    .pcard-name  { color: var(--white); }
+    .pcard-price { color: var(--gold-lt); }
+    .pcard-desc  { color: rgba(255,255,255,.50); }
+    .pcard-feat li { color: rgba(255,255,255,.55); }
+    .pcard-btn {
+      background: transparent;
+      color: var(--gold);
+      border: 1.5px solid rgba(196,150,12,.45);
+    }
+    .pcard-btn:hover {
+      background: var(--gold);
+      color: var(--dark);
+      border-color: var(--gold);
+    }
+    .pcard--featured {
+      background: linear-gradient(150deg, rgba(196,150,12,.20), rgba(196,150,12,.06));
+      border-color: var(--gold);
+      box-shadow: 0 8px 40px rgba(196,150,12,.20);
+    }
+    .pcard--featured .pcard-name  { color: var(--white); }
+    .pcard--featured .pcard-price { color: var(--gold); }
+    .pcard--featured .pcard-btn   { background: var(--gold); color: var(--dark); border-color: var(--gold); }
+    .pcard--featured .pcard-btn:hover { background: var(--gold-lt); }
+    .pcard--featured .pcard-feat li { color: rgba(255,255,255,.62); }
 
-  .products-top {
-    position: relative; z-index: 1;
-    padding: 100px 60px 0;
-    display: flex; align-items: flex-end; justify-content: space-between;
-    gap: 32px; flex-wrap: wrap;
-  }
-  .products-top .section-title { color: var(--white); }
-  .products-top .section-desc  { color: rgba(255,255,255,0.55); }
-  .products-top .section-eyebrow { color: var(--gold); }
+    /* Track fade edges on dark */
+    .product-track-wrap::before { background: linear-gradient(90deg,  var(--dark), transparent); }
+    .product-track-wrap::after  { background: linear-gradient(-90deg, var(--dark), transparent); }
 
-  /* Category filter pills */
-  .product-filters {
-    display: flex; gap: 10px; flex-wrap: wrap;
-    margin: 32px 60px 0;
-    position: relative; z-index: 1;
-  }
-  .filter-pill {
-    padding: 8px 20px; border-radius: 50px; cursor: pointer;
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase;
-    border: 1.5px solid rgba(196,150,12,0.35);
-    color: rgba(255,255,255,0.6);
-    background: transparent;
-    transition: all 0.25s var(--ease);
-  }
-  .filter-pill:hover,
-  .filter-pill.active {
-    background: var(--gold);
-    border-color: var(--gold);
-    color: var(--dark);
-  }
+    /* Arrow buttons on dark */
+    .product-arrows button { border-color: rgba(196,150,12,.35); color: rgba(255,255,255,.7); }
+    .product-arrows button:hover { border-color: var(--gold); background: var(--gold); color: var(--dark); }
 
-  /* ── TRACK WRAPPER ── */
-  .product-track-wrap {
-    position: relative; z-index: 1;
-    overflow: hidden;
-    padding: 48px 0 80px;
-    cursor: grab;
-  }
-  .product-track-wrap:active { cursor: grabbing; }
+    /* Active dot */
+    .prod-dot.active { background: var(--gold); transform: scale(1.4); }
 
-  /* Fade edges */
-  .product-track-wrap::before,
-  .product-track-wrap::after {
-    content: ''; position: absolute; top: 0; bottom: 80px; width: 120px; z-index: 2; pointer-events: none;
-  }
-  .product-track-wrap::before { left: 0; background: linear-gradient(90deg, var(--dark), transparent); }
-  .product-track-wrap::after  { right: 0; background: linear-gradient(-90deg, var(--dark), transparent); }
+    /* ── Filter pills (new component) ── */
+    .product-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 28px 80px 0;
+      position: relative;
+      z-index: 1;
+    }
+    .filter-pill {
+      padding: 8px 22px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
+      border: 1.5px solid rgba(196,150,12,.35);
+      color: rgba(255,255,255,.55);
+      background: transparent;
+      transition: background .22s, color .22s, border-color .22s, transform .15s;
+    }
+    .filter-pill:hover  { border-color: var(--gold); color: var(--gold); }
+    .filter-pill.active { background: var(--gold); border-color: var(--gold); color: var(--dark); }
+    .filter-pill:active { transform: scale(.96); }
 
-  .product-track {
-    display: flex; gap: 24px;
-    padding: 16px 80px 16px;
-    overflow-x: auto; scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    transition: transform 0.1s;
-  }
-  .product-track::-webkit-scrollbar { display: none; }
+    /* ── About: ensure white bg ── */
+    #about { background: var(--white); }
 
-  /* ── PRODUCT CARD ── */
-  .pcard {
-    flex: 0 0 300px; scroll-snap-align: start;
-    background: rgba(255,255,255,0.04);
-    border: 1.5px solid rgba(196,150,12,0.20);
-    border-radius: 24px; padding: 36px 28px;
-    position: relative; overflow: hidden;
-    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out),
-                box-shadow 0.3s, border-color 0.3s;
-    /* scroll-reveal: start hidden, staggered */
-    opacity: 0;
-    transform: translateY(60px) scale(0.94);
-  }
-  .pcard.revealed {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  .pcard:hover {
-    box-shadow: 0 20px 60px rgba(196,150,12,0.20);
-    border-color: var(--gold);
-    transform: translateY(-8px) scale(1.02) !important;
-  }
-  /* Gold top bar */
-  .pcard::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-lt));
-    transform: scaleX(0); transform-origin: left;
-    transition: transform 0.35s var(--ease);
-  }
-  .pcard:hover::before { transform: scaleX(1); }
+    /* ── Why: mid-dark strip ── */
+    #why { background: #192633; }
+    #why .why-header .section-title { color: var(--white); }
+    .ticker-wrap::before { background: linear-gradient(90deg,  #192633, transparent); }
+    .ticker-wrap::after  { background: linear-gradient(-90deg, #192633, transparent); }
 
-  /* Featured card */
-  .pcard--featured {
-    background: linear-gradient(160deg, rgba(196,150,12,0.18), rgba(196,150,12,0.06));
-    border-color: var(--gold);
-    box-shadow: 0 8px 40px rgba(196,150,12,0.18);
-  }
-  .pcard--featured .pcard-name { color: var(--white); }
-  .pcard--featured .pcard-price { color: var(--gold); }
+    /* ── Nav logo text ── */
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      gap: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-logo em { font-style: normal; color: var(--gold); }
 
-  .pcard-badge {
-    position: absolute; top: 16px; right: 16px;
-    background: var(--gold); color: var(--dark);
-    font-size: 0.60rem; font-weight: 800; letter-spacing: 0.14em;
-    text-transform: uppercase; padding: 4px 10px; border-radius: 20px;
-  }
-
-  .pcard-icon {
-    width: 56px; height: 56px; border-radius: 16px;
-    background: rgba(196,150,12,0.14);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.55rem; margin-bottom: 20px;
-    border: 1px solid rgba(196,150,12,0.22);
-  }
-  .pcard-tag {
-    font-size: 0.64rem; font-weight: 600; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--gold);
-    margin-bottom: 6px; display: block;
-  }
-  .pcard-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.25rem; font-weight: 800; color: var(--white);
-    margin-bottom: 10px; line-height: 1.25;
-  }
-  .pcard-desc {
-    font-size: 0.84rem; color: rgba(255,255,255,0.50); line-height: 1.7;
-    margin-bottom: 20px;
-  }
-  .pcard-price {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.8rem; font-weight: 900; color: var(--gold-lt); line-height: 1;
-    margin-bottom: 18px;
-  }
-  .pcard-price sup { font-size: 0.9rem; vertical-align: top; margin-top: 5px; display: inline-block; }
-  .pcard-price sub { font-size: 0.70rem; font-family: 'Inter', sans-serif; font-weight: 400; color: rgba(255,255,255,0.35); }
-
-  .pcard-feat {
-    list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;
-  }
-  .pcard-feat li {
-    font-size: 0.81rem; color: rgba(255,255,255,0.55);
-    display: flex; align-items: center; gap: 9px;
-  }
-  .pcard-feat li::before {
-    content: '✓'; color: var(--gold); font-weight: 700; font-size: 0.70rem; flex-shrink: 0;
-  }
-  .pcard-btn {
-    width: 100%; padding: 12px;
-    background: transparent; color: var(--gold);
-    border: 1.5px solid rgba(196,150,12,0.45);
-    border-radius: 10px; font-size: 0.85rem; font-weight: 600;
-    letter-spacing: 0.04em; cursor: pointer;
-    transition: background 0.25s, color 0.25s, border-color 0.25s, transform 0.2s;
-  }
-  .pcard-btn:hover {
-    background: var(--gold); color: var(--dark);
-    border-color: var(--gold); transform: translateY(-1px);
-  }
-  .pcard--featured .pcard-btn {
-    background: var(--gold); color: var(--dark); border-color: var(--gold);
-  }
-  .pcard--featured .pcard-btn:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
-
-  /* Scroll indicator dots */
-  .product-nav {
-    display: flex; align-items: center; justify-content: center;
-    gap: 8px; padding-bottom: 48px; position: relative; z-index: 1;
-  }
-  .prod-dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: rgba(255,255,255,0.18); cursor: pointer;
-    transition: background 0.3s, transform 0.3s, width 0.3s;
-  }
-  .prod-dot.active {
-    background: var(--gold); transform: scale(1.3); width: 22px; border-radius: 4px;
-  }
-
-  /* Scroll arrows */
-  .product-arrows {
-    display: flex; gap: 10px; align-self: flex-end;
-  }
-  .product-arrows button {
-    width: 42px; height: 42px; border-radius: 50%;
-    border: 1.5px solid rgba(196,150,12,0.35);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1rem; color: rgba(255,255,255,0.7);
-    background: transparent; cursor: pointer;
-    transition: border-color 0.25s, background 0.25s, color 0.25s;
-  }
-  .product-arrows button:hover {
-    border-color: var(--gold); background: var(--gold); color: var(--dark);
-  }
-
-  /* ── WHY section on dark ── */
-  #why { background: rgba(38,55,70,0.5); }
-  #why .why-inner { padding: 80px 0; }
-  #why .why-header { padding: 0 60px; margin-bottom: 48px; }
-  #why .why-header .section-title { color: var(--white); }
-
-  /* ── About section ── */
-  #about { background: var(--white); }
-
-  /* ── Hero ── */
-  #home { background: var(--dark); }
-
-  /* ── Responsive overrides ── */
-  @media (max-width: 768px) {
-    .products-top { padding: 60px 24px 0; }
-    .product-filters { margin: 24px 24px 0; }
-    .product-track { padding: 12px 24px; }
-    .pcard { flex: 0 0 268px; }
-    #why .why-header { padding: 0 24px; }
-  }
-</style>
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .product-filters { padding: 20px 24px 0; }
+      #product .products-top { padding-top: 60px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════
-     NAVIGATION
-══════════════════════════════════════ -->
+
+<!-- ═══════════════════════════════════
+     NAV
+═══════════════════════════════════ -->
 <header id="nav">
-  <a class="nav-logo" href="#home" aria-label="FTL Insurance home">
-    <!-- Inline SVG icon (the geometric flower mark) -->
-    <svg width="34" height="34" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <a class="nav-logo" href="#home" aria-label="FTL Insurance — back to home">
+    <!-- Icon mark from source/Icon.svg -->
+    <svg width="28" height="28" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
       <path fill="#C4950C" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
     </svg>
-    <span>FTL <em>Insurance</em></span>
+    FTL <em>Insurance</em>
   </a>
 
-  <ul class="nav-links" role="list">
+  <ul class="nav-links">
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#product">Products</a></li>
@@ -268,105 +164,109 @@
 
   <a href="#contact" class="nav-cta">Get a Quote</a>
 
-  <button class="nav-hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+  <button class="nav-hamburger" id="hamburger"
+    aria-label="Open navigation menu"
+    aria-expanded="false"
+    aria-controls="mobileDrawer">
     <span></span><span></span><span></span>
   </button>
 </header>
 
 <!-- Mobile drawer -->
-<nav class="nav-drawer" id="drawer" aria-label="Mobile navigation">
+<nav class="nav-drawer" id="mobileDrawer" aria-label="Mobile navigation">
   <ul>
-    <li><a href="#home"    onclick="closeDrawer()">Home</a></li>
-    <li><a href="#about"   onclick="closeDrawer()">About</a></li>
-    <li><a href="#product" onclick="closeDrawer()">Products</a></li>
-    <li><a href="#why"     onclick="closeDrawer()">Why Us</a></li>
-    <li><a href="#contact" onclick="closeDrawer()">Contact</a></li>
+    <li><a href="#home"    class="drawer-link">Home</a></li>
+    <li><a href="#about"   class="drawer-link">About</a></li>
+    <li><a href="#product" class="drawer-link">Products</a></li>
+    <li><a href="#why"     class="drawer-link">Why Us</a></li>
+    <li><a href="#contact" class="drawer-link">Contact</a></li>
   </ul>
-  <a href="#contact" class="drawer-cta" onclick="closeDrawer()">Get a Free Quote</a>
+  <a href="#contact" class="drawer-cta drawer-link">Get a Free Quote</a>
 </nav>
 
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════════
      HERO
-══════════════════════════════════════ -->
-<section id="home" aria-label="Hero">
-  <div class="hero-bg-img" aria-hidden="true"></div>
+═══════════════════════════════════ -->
+<section id="home">
+  <div class="hero-bg-img"  aria-hidden="true"></div>
   <div class="hero-pattern" aria-hidden="true"></div>
-  <div class="hero-accent" aria-hidden="true"></div>
+  <div class="hero-accent"  aria-hidden="true"></div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow">Trusted by 250,000+ families across Cambodia</p>
+    <p class="hero-eyebrow">Trusted by 250,000+ families across Cambodia since 1999</p>
 
     <h1 class="hero-title">
-      Protect What<br>
-      Matters <em>Most.</em>
+      Protect What<br>Matters <em>Most.</em>
     </h1>
 
     <p class="hero-sub">
-      FTL Insurance gives you clear, honest coverage — no fine print traps, no surprise exclusions. One trusted partner for every stage of life.
+      FTL Insurance gives you clear, honest coverage — no fine-print traps,
+      no hidden exclusions. One trusted partner for every stage of life.
     </p>
 
     <div class="hero-actions">
-      <a href="#product" class="btn-primary">Explore Our Products</a>
+      <a href="#product" class="btn-primary">Explore Our Plans</a>
       <a href="#about"   class="btn-outline">How It Works</a>
     </div>
 
     <div class="hero-stats">
       <div class="stat">
-        <div class="stat-num" id="sc1">0</div>
+        <div class="stat-num" id="cnt-families">0</div>
         <div class="stat-label">Families Protected</div>
       </div>
       <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat">
-        <div class="stat-num" id="sc2">0</div>
-        <div class="stat-label">Claims Settled</div>
+        <div class="stat-num" id="cnt-claims">0</div>
+        <div class="stat-label">Claims Paid</div>
       </div>
       <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat">
-        <div class="stat-num" id="sc3">0</div>
+        <div class="stat-num" id="cnt-years">0</div>
         <div class="stat-label">Years of Trust</div>
       </div>
       <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat">
-        <div class="stat-num" id="sc4">0</div>
+        <div class="stat-num" id="cnt-sat">0</div>
         <div class="stat-label">Satisfaction Rate</div>
       </div>
     </div>
   </div>
 
-  <div class="scroll-cue" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})" role="button" tabindex="0" aria-label="Scroll to about section">
+  <div class="scroll-cue" id="scrollCue"
+    role="button" tabindex="0"
+    aria-label="Scroll down to About section">
     <span>Scroll</span>
     <div class="scroll-cue-arrow" aria-hidden="true"></div>
   </div>
 </section>
 
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════════
      ABOUT
-══════════════════════════════════════ -->
-<section id="about" aria-label="About FTL Insurance">
-  <!-- Visual side -->
+═══════════════════════════════════ -->
+<section id="about">
+  <!-- Visual / animated side -->
   <div class="about-visual reveal-left">
     <div class="rings-wrap" aria-hidden="true">
       <div class="ring"></div>
       <div class="ring"></div>
       <div class="ring"></div>
     </div>
-    <!-- FTL logo mark as the pulsing center -->
+    <!-- FTL icon mark as pulsing centre element -->
     <div class="about-icon-center" aria-hidden="true">
-      <svg width="52" height="52" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <svg width="44" height="44" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
         <path fill="#263746" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
       </svg>
     </div>
-
-    <!-- Floating chips -->
+    <!-- Floating stat chips -->
     <div class="float-chip" aria-hidden="true">
       <span class="chip-icon">🏆</span>
-      <div><div class="chip-val">A+</div><div class="chip-label">AM Best Rating</div></div>
+      <div><div class="chip-val">A+</div><div class="chip-label">Regulator Rating</div></div>
     </div>
     <div class="float-chip" aria-hidden="true">
       <span class="chip-icon">💰</span>
-      <div><div class="chip-val">48 hrs</div><div class="chip-label">Claim Payout</div></div>
+      <div><div class="chip-val">48 hrs</div><div class="chip-label">Avg. Claim Payout</div></div>
     </div>
     <div class="float-chip" aria-hidden="true">
       <span class="chip-icon">🛡️</span>
@@ -377,9 +277,11 @@
   <!-- Text side -->
   <div class="reveal-right">
     <span class="section-eyebrow">Why FTL</span>
-    <h2 class="section-title">Insurance that puts <em>people first</em></h2>
-    <p class="section-desc">We believe every family deserves protection that's straightforward, affordable, and genuinely there when needed — not buried in exclusion clauses.</p>
-
+    <h2 class="section-title">Insurance built around <em>your life</em></h2>
+    <p class="section-desc">
+      We believe protection should be honest, affordable, and genuinely useful —
+      not buried in exclusion clauses or complicated jargon.
+    </p>
     <ul class="about-list">
       <li class="about-item">
         <div class="about-item-icon">⚡</div>
@@ -392,14 +294,14 @@
         <div class="about-item-icon">🔒</div>
         <div>
           <strong>Premium Lock Guarantee</strong>
-          <p>Your rate is fixed for the life of your policy. No nasty surprises after year one.</p>
+          <p>Your rate is fixed for the life of your policy. No surprises after year one — ever.</p>
         </div>
       </li>
       <li class="about-item">
         <div class="about-item-icon">💬</div>
         <div>
           <strong>Real People, Real Support</strong>
-          <p>Dedicated Khmer-speaking advisors available 7 days a week — no bots, no queue music.</p>
+          <p>Khmer-speaking advisors available 7 days a week. No bots, no hold music.</p>
         </div>
       </li>
     </ul>
@@ -407,61 +309,66 @@
 </section>
 
 
-<!-- ══════════════════════════════════════
-     PRODUCTS — WOW SHOWCASE
-══════════════════════════════════════ -->
-<section id="product" aria-label="Insurance products">
+<!-- ═══════════════════════════════════
+     PRODUCTS — WOW CAROUSEL
+     10 cards · filter pills · drag & touch
+     Staggered reveal · resets on scroll-up
+═══════════════════════════════════ -->
+<section id="product">
 
   <!-- Header row -->
   <div class="products-top reveal">
     <div class="products-top-left">
       <span class="section-eyebrow">Our Products</span>
-      <h2 class="section-title">Every life stage.<br><em>Covered.</em></h2>
-      <p class="section-desc">Ten tailored insurance products — from your first job to your grandchildren's future. Drag to explore.</p>
+      <h2 class="section-title">Every life stage. <em>Covered.</em></h2>
+      <p class="section-desc">
+        Ten tailored products — from your first job to your grandchildren's future.
+        Filter by category or drag to explore all plans.
+      </p>
     </div>
-    <div class="product-arrows" aria-label="Scroll products">
-      <button id="arrowLeft"  aria-label="Scroll left">&#8592;</button>
-      <button id="arrowRight" aria-label="Scroll right">&#8594;</button>
+    <div class="product-arrows">
+      <button id="trackPrev" aria-label="Scroll products left">&#8592;</button>
+      <button id="trackNext" aria-label="Scroll products right">&#8594;</button>
     </div>
   </div>
 
-  <!-- Filter pills -->
-  <div class="product-filters" role="group" aria-label="Filter by category">
-    <button class="filter-pill active" data-filter="all">All Products</button>
-    <button class="filter-pill" data-filter="life">Life</button>
-    <button class="filter-pill" data-filter="health">Health</button>
-    <button class="filter-pill" data-filter="wealth">Wealth</button>
-    <button class="filter-pill" data-filter="property">Property</button>
+  <!-- Category filter pills -->
+  <div class="product-filters" role="group" aria-label="Filter products by category">
+    <button class="filter-pill active" data-cat="all">All</button>
+    <button class="filter-pill" data-cat="life">Life</button>
+    <button class="filter-pill" data-cat="health">Health</button>
+    <button class="filter-pill" data-cat="wealth">Wealth</button>
+    <button class="filter-pill" data-cat="property">Property</button>
   </div>
 
-  <!-- Draggable track -->
-  <div class="product-track-wrap" id="trackWrap">
-    <div class="product-track" id="productTrack" role="list">
+  <!-- Horizontal drag-to-scroll track -->
+  <div class="product-track-wrap">
+    <div class="product-track" id="productTrack">
 
-      <!-- Card 1 -->
-      <article class="pcard" data-category="life" role="listitem">
+      <!-- 1 -->
+      <article class="pcard" data-cat="life">
         <div class="pcard-icon">🌱</div>
         <span class="pcard-tag">Life · Starter</span>
         <h3 class="pcard-name">Term Life</h3>
-        <p class="pcard-desc">Fixed-period protection at the lowest premium. Ideal for young families just starting out.</p>
-        <div class="pcard-price"><sup>$</sup>18<sub>/mo</sub></div>
+        <p class="pcard-desc">Fixed-period protection at the lowest premium. Ideal for young families beginning their coverage journey.</p>
+        <div class="pcard-price"><sup>$</sup>18<sub>/month</sub></div>
         <ul class="pcard-feat">
           <li>Up to $500K coverage</li>
           <li>10, 20, or 30-year terms</li>
-          <li>No medical exam needed</li>
-          <li>Cancel anytime</li>
+          <li>No medical exam required</li>
+          <li>Cancel anytime, no penalty</li>
         </ul>
         <button class="pcard-btn">Get This Plan →</button>
       </article>
 
-      <!-- Card 2 — FEATURED -->
-      <article class="pcard pcard--featured" data-category="life" role="listitem">
+      <!-- 2  FEATURED -->
+      <article class="pcard pcard--featured" data-cat="life">
         <div class="pcard-badge">Most Popular</div>
         <div class="pcard-icon">⭐</div>
         <span class="pcard-tag">Life · Recommended</span>
         <h3 class="pcard-name">Whole Life</h3>
-        <p class="pcard-desc">Lifetime coverage with a tax-deferred cash value that grows year after year.</p>
-        <div class="pcard-price"><sup>$</sup>54<sub>/mo</sub></div>
+        <p class="pcard-desc">Lifetime coverage with tax-deferred cash value that grows year after year — protection that also builds wealth.</p>
+        <div class="pcard-price"><sup>$</sup>54<sub>/month</sub></div>
         <ul class="pcard-feat">
           <li>Lifelong — never expires</li>
           <li>Cash value accumulation</li>
@@ -471,13 +378,13 @@
         <button class="pcard-btn">Get This Plan →</button>
       </article>
 
-      <!-- Card 3 -->
-      <article class="pcard" data-category="life" role="listitem">
+      <!-- 3 -->
+      <article class="pcard" data-cat="life">
         <div class="pcard-icon">👑</div>
         <span class="pcard-tag">Life · Premium</span>
         <h3 class="pcard-name">Universal Life</h3>
-        <p class="pcard-desc">Flexible premiums, investment-linked growth, and adjustable coverage as life evolves.</p>
-        <div class="pcard-price"><sup>$</sup>120<sub>/mo</sub></div>
+        <p class="pcard-desc">Flexible premiums and investment-linked growth. Adjust your coverage as your life and ambitions evolve over time.</p>
+        <div class="pcard-price"><sup>$</sup>120<sub>/month</sub></div>
         <ul class="pcard-feat">
           <li>Flexible premium payments</li>
           <li>Investment component</li>
@@ -487,109 +394,13 @@
         <button class="pcard-btn">Get This Plan →</button>
       </article>
 
-      <!-- Card 4 -->
-      <article class="pcard" data-category="health" role="listitem">
-        <div class="pcard-icon">🏥</div>
-        <span class="pcard-tag">Health · Essential</span>
-        <h3 class="pcard-name">MediCare Basic</h3>
-        <p class="pcard-desc">Covers hospitalisation, surgery, and emergency care so a medical bill never derails your finances.</p>
-        <div class="pcard-price"><sup>$</sup>32<sub>/mo</sub></div>
-        <ul class="pcard-feat">
-          <li>In & out-patient coverage</li>
-          <li>50+ partner hospitals</li>
-          <li>Cashless admission</li>
-          <li>24/7 telemedicine access</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- Card 5 -->
-      <article class="pcard" data-category="health" role="listitem">
-        <div class="pcard-icon">💊</div>
-        <span class="pcard-tag">Health · Plus</span>
-        <h3 class="pcard-name">MediCare Plus</h3>
-        <p class="pcard-desc">Extended coverage including specialist consultations, dental, and optical benefits.</p>
-        <div class="pcard-price"><sup>$</sup>68<sub>/mo</sub></div>
-        <ul class="pcard-feat">
-          <li>Everything in Basic</li>
-          <li>Dental & optical cover</li>
-          <li>Annual health screening</li>
-          <li>Global emergency cover</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- Card 6 -->
-      <article class="pcard" data-category="wealth" role="listitem">
-        <div class="pcard-icon">📈</div>
-        <span class="pcard-tag">Wealth · Growth</span>
-        <h3 class="pcard-name">Investment-Linked</h3>
-        <p class="pcard-desc">Combine life protection with market-linked returns. Your premium works harder, not just longer.</p>
-        <div class="pcard-price"><sup>$</sup>85<sub>/mo</sub></div>
-        <ul class="pcard-feat">
-          <li>Choice of 8 fund options</li>
-          <li>Switch funds anytime</li>
-          <li>Life cover from Day 1</li>
-          <li>Quarterly statements</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- Card 7 -->
-      <article class="pcard" data-category="wealth" role="listitem">
-        <div class="pcard-icon">🎓</div>
-        <span class="pcard-tag">Wealth · Education</span>
-        <h3 class="pcard-name">EduSave Plan</h3>
-        <p class="pcard-desc">Save for your child's university fees with guaranteed payouts at key education milestones.</p>
-        <div class="pcard-price"><sup>$</sup>45<sub>/mo</sub></div>
-        <ul class="pcard-feat">
-          <li>Guaranteed maturity payout</li>
-          <li>Waiver of premium on death</li>
-          <li>Bonus on policy anniversary</li>
-          <li>Flexible payout dates</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- Card 8 -->
-      <article class="pcard" data-category="property" role="listitem">
-        <div class="pcard-icon">🏠</div>
-        <span class="pcard-tag">Property · Home</span>
-        <h3 class="pcard-name">Home Protect</h3>
-        <p class="pcard-desc">Covers your home and contents against fire, flood, theft, and accidental damage.</p>
-        <div class="pcard-price"><sup>$</sup>22<sub>/mo</sub></div>
-        <ul class="pcard-feat">
-          <li>Building & contents cover</li>
-          <li>Flood & fire protection</li>
-          <li>Theft & vandalism</li>
-          <li>Alternative accommodation</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- Card 9 -->
-      <article class="pcard" data-category="property" role="listitem">
-        <div class="pcard-icon">🚗</div>
-        <span class="pcard-tag">Property · Auto</span>
-        <h3 class="pcard-name">AutoShield</h3>
-        <p class="pcard-desc">Comprehensive motor insurance with accident, theft, third-party, and roadside rescue.</p>
-        <div class="pcard-price"><sup>$</sup>28<sub>/mo</sub></div>
-        <ul class="pcard-feat">
-          <li>Comprehensive cover</li>
-          <li>24/7 roadside assistance</li>
-          <li>Windscreen replacement</li>
-          <li>No-claim bonus up to 55%</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- Card 10 -->
-      <article class="pcard" data-category="life" role="listitem">
-        <div class="pcard-icon">🌍</div>
+      <!-- 4 -->
+      <article class="pcard" data-cat="life">
+        <div class="pcard-icon">🌏</div>
         <span class="pcard-tag">Life · Senior</span>
         <h3 class="pcard-name">Legacy Plan</h3>
-        <p class="pcard-desc">Designed for ages 50–75. Leave a guaranteed inheritance — no medical questions asked.</p>
-        <div class="pcard-price"><sup>$</sup>75<sub>/mo</sub></div>
+        <p class="pcard-desc">Designed for ages 50–75. Leave a guaranteed inheritance for the people you love — no medical questions asked.</p>
+        <div class="pcard-price"><sup>$</sup>75<sub>/month</sub></div>
         <ul class="pcard-feat">
           <li>Guaranteed acceptance</li>
           <li>Coverage up to $250K</li>
@@ -599,25 +410,120 @@
         <button class="pcard-btn">Get This Plan →</button>
       </article>
 
-    </div><!-- /product-track -->
-  </div><!-- /track-wrap -->
+      <!-- 5 -->
+      <article class="pcard" data-cat="health">
+        <div class="pcard-icon">🏥</div>
+        <span class="pcard-tag">Health · Essential</span>
+        <h3 class="pcard-name">MediCare Basic</h3>
+        <p class="pcard-desc">Covers hospitalisation, surgery, and emergency care so a medical bill never derails your family's finances.</p>
+        <div class="pcard-price"><sup>$</sup>32<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>In &amp; out-patient coverage</li>
+          <li>50+ partner hospitals</li>
+          <li>Cashless admission</li>
+          <li>24/7 telemedicine</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
 
-  <!-- Dot indicators -->
-  <div class="product-nav" id="productNav" role="tablist" aria-label="Product navigation dots"></div>
+      <!-- 6 -->
+      <article class="pcard" data-cat="health">
+        <div class="pcard-icon">💊</div>
+        <span class="pcard-tag">Health · Plus</span>
+        <h3 class="pcard-name">MediCare Plus</h3>
+        <p class="pcard-desc">Extended cover including specialist consultations, dental, and optical for families wanting complete peace of mind.</p>
+        <div class="pcard-price"><sup>$</sup>68<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Everything in Basic</li>
+          <li>Dental &amp; optical cover</li>
+          <li>Annual health screening</li>
+          <li>Global emergency cover</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 7 -->
+      <article class="pcard" data-cat="wealth">
+        <div class="pcard-icon">📈</div>
+        <span class="pcard-tag">Wealth · Growth</span>
+        <h3 class="pcard-name">Investment-Linked</h3>
+        <p class="pcard-desc">Combine life protection with market-linked returns. Your premium protects your family and grows your money at once.</p>
+        <div class="pcard-price"><sup>$</sup>85<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>8 fund options</li>
+          <li>Switch funds anytime</li>
+          <li>Life cover from Day 1</li>
+          <li>Quarterly statements</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 8 -->
+      <article class="pcard" data-cat="wealth">
+        <div class="pcard-icon">🎓</div>
+        <span class="pcard-tag">Wealth · Education</span>
+        <h3 class="pcard-name">EduSave Plan</h3>
+        <p class="pcard-desc">Guaranteed payouts at key education milestones — your child's university future secured, no matter what happens.</p>
+        <div class="pcard-price"><sup>$</sup>45<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Guaranteed maturity payout</li>
+          <li>Premium waiver on death</li>
+          <li>Annual policy bonus</li>
+          <li>Flexible payout dates</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 9 -->
+      <article class="pcard" data-cat="property">
+        <div class="pcard-icon">🏠</div>
+        <span class="pcard-tag">Property · Home</span>
+        <h3 class="pcard-name">Home Protect</h3>
+        <p class="pcard-desc">Your home and contents covered against fire, flood, theft, and accidental damage — with alternative accommodation included.</p>
+        <div class="pcard-price"><sup>$</sup>22<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Building &amp; contents cover</li>
+          <li>Flood &amp; fire protection</li>
+          <li>Theft &amp; vandalism</li>
+          <li>Alternative accommodation</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 10 -->
+      <article class="pcard" data-cat="property">
+        <div class="pcard-icon">🚗</div>
+        <span class="pcard-tag">Property · Auto</span>
+        <h3 class="pcard-name">AutoShield</h3>
+        <p class="pcard-desc">Comprehensive motor cover with accident, theft, third-party liability, and 24/7 roadside rescue across Cambodia.</p>
+        <div class="pcard-price"><sup>$</sup>28<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Comprehensive cover</li>
+          <li>24/7 roadside assistance</li>
+          <li>Windscreen replacement</li>
+          <li>No-claim bonus up to 55%</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+    </div><!-- /product-track -->
+  </div><!-- /product-track-wrap -->
+
+  <!-- Dot / pill indicators -->
+  <div class="product-nav" id="productDots" role="tablist" aria-label="Product navigation dots"></div>
 
 </section>
 
 
-<!-- ══════════════════════════════════════
-     WHY US — Ticker Strip
-══════════════════════════════════════ -->
-<section id="why" aria-label="Why choose FTL">
+<!-- ═══════════════════════════════════
+     WHY US — infinite ticker
+═══════════════════════════════════ -->
+<section id="why">
   <div class="why-inner">
     <div class="why-header reveal">
       <span class="section-eyebrow">What Sets Us Apart</span>
-      <h2 class="section-title" style="color:var(--white)">Why 250,000 families chose <em style="color:var(--gold);font-style:normal">FTL</em></h2>
+      <h2 class="section-title">Reasons 250,000 families chose FTL</h2>
     </div>
-
     <div class="ticker-wrap" aria-hidden="true">
       <div class="ticker" id="whyTicker"></div>
     </div>
@@ -625,22 +531,23 @@
 </section>
 
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════════
      CONTACT
-══════════════════════════════════════ -->
-<section id="contact" aria-label="Contact FTL Insurance">
-  <!-- Left: info -->
+═══════════════════════════════════ -->
+<section id="contact">
+
+  <!-- Left: contact info -->
   <div class="contact-info-col reveal-left">
-    <span class="section-eyebrow">Get in Touch</span>
-    <h2 class="section-title">Talk to a real advisor — not a chatbot</h2>
-    <p class="sub">Our team speaks Khmer and English. No pressure, no jargon — just honest guidance to find the right plan for you.</p>
+    <span class="section-eyebrow">Get In Touch</span>
+    <h2 class="section-title">Talk to a real advisor — not a bot</h2>
+    <p class="sub">Our team speaks Khmer and English. No pressure, no jargon — just honest guidance to find the right plan for your family.</p>
 
     <div class="info-items">
       <div class="info-item">
         <span class="ii-icon">📞</span>
         <div>
           <strong>Call Us</strong>
-          <span>023 999 888 (Phnom Penh)</span>
+          <span>023 999 888 &middot; Mon–Sat</span>
         </div>
       </div>
       <div class="info-item">
@@ -661,80 +568,79 @@
         <span class="ii-icon">🕐</span>
         <div>
           <strong>Opening Hours</strong>
-          <span>Mon–Fri 8AM–6PM · Sat 9AM–12PM</span>
+          <span>Mon–Fri 8 AM–6 PM &middot; Sat 9 AM–12 PM</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Right: form -->
+  <!-- Right: enquiry form -->
   <div class="reveal-right">
-    <span class="section-eyebrow" style="margin-bottom:20px;display:block">Free Consultation</span>
-    <div class="contact-form">
+    <span class="section-eyebrow" style="display:block;margin-bottom:20px">Free Consultation</span>
+    <form class="contact-form" id="contactForm" novalidate>
       <div class="form-row">
         <div class="form-group">
           <label for="fname">First Name</label>
-          <input id="fname" type="text" placeholder="Sokha"/>
+          <input id="fname" type="text" placeholder="Sokha" autocomplete="given-name" />
         </div>
         <div class="form-group">
           <label for="lname">Last Name</label>
-          <input id="lname" type="text" placeholder="Chan"/>
+          <input id="lname" type="text" placeholder="Chan" autocomplete="family-name" />
         </div>
       </div>
       <div class="form-group">
-        <label for="email">Email Address</label>
-        <input id="email" type="email" placeholder="sokha@example.com"/>
+        <label for="femail">Email Address</label>
+        <input id="femail" type="email" placeholder="sokha@example.com" autocomplete="email" />
       </div>
       <div class="form-group">
-        <label for="phone">Phone Number</label>
-        <input id="phone" type="tel" placeholder="+855 12 000 000"/>
+        <label for="fphone">Phone Number</label>
+        <input id="fphone" type="tel" placeholder="+855 12 000 000" autocomplete="tel" />
       </div>
       <div class="form-group">
-        <label for="plan">Product Interest</label>
-        <select id="plan">
+        <label for="fplan">Product Interest</label>
+        <select id="fplan">
           <option value="">Select a product…</option>
           <option>Term Life Insurance</option>
           <option>Whole Life Insurance</option>
           <option>Universal Life Insurance</option>
+          <option>Legacy Plan</option>
           <option>MediCare Basic</option>
           <option>MediCare Plus</option>
           <option>Investment-Linked Plan</option>
           <option>EduSave Plan</option>
           <option>Home Protect</option>
           <option>AutoShield</option>
-          <option>Legacy Plan</option>
         </select>
       </div>
       <div class="form-group">
-        <label for="message">Message (optional)</label>
-        <textarea id="message" placeholder="Tell us about your needs or any questions you have…"></textarea>
+        <label for="fmessage">Message <span style="font-size:.8em;opacity:.6">(optional)</span></label>
+        <textarea id="fmessage" placeholder="Tell us about your coverage needs or any questions you have…"></textarea>
       </div>
-      <button class="form-submit" type="button">Send My Request →</button>
-    </div>
+      <button class="form-submit" type="submit">Send My Request →</button>
+    </form>
   </div>
+
 </section>
 
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════════
      FOOTER
-══════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <footer>
   <div class="footer-top">
-    <!-- Brand -->
     <div class="footer-brand">
-      <div class="footer-logo">
-        <!-- Full FTL wordmark logo, inverted white -->
-        <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg" aria-label="FTL Insurance" style="height:38px;width:auto;filter:brightness(0) invert(1)">
-          <g>
-            <path fill="#c4950c" d="M152.66,247.9v22.33c0,3.8.21,6.61.64,8.42.43,1.81,1.24,3.33,2.43,4.56,1.04,1.08,2.27,1.87,3.68,2.38,1.41.5,3.21.81,5.42.92v1.29h-37.01v-1.29c1.85,0,3.61-.29,5.27-.87,1.66-.58,2.95-1.35,3.88-2.32,1.08-1.16,1.85-2.74,2.32-4.76.46-2.01.69-4.79.69-8.34v-41.24c0-2.39-.14-4.87-.41-7.44-.39-3.28-2.05-5.72-4.98-7.33-1.62-.86-3.88-1.36-6.78-1.51v-1.29h60.52l1.68,18.18-1.33.28c-.97-2.83-1.85-4.96-2.66-6.38-1.82-3.25-4.36-5.76-7.64-7.55-1.89-1.04-4.07-1.77-6.54-2.18-2.47-.41-5.87-.62-10.19-.62h-8.98v33.01h2.32c6.83,0,11.79-1.47,14.88-4.42,1.35-1.27,2.37-2.77,3.07-4.5.69-1.74,1.16-4,1.39-6.8l1.33.06-.35,33.91h-1.39c-.43-3.81-1.15-6.74-2.17-8.81-1.02-2.07-2.58-3.74-4.66-5.01-1.55-.93-3.45-1.61-5.7-2.04-2.26-.43-5.16-.64-8.72-.64Z"/>
-            <path fill="#c4950c" d="M437.85,257.36c-.15,1.83-.23,3.15-.23,3.97,0,3.24.49,6.42,1.47,9.51.98,3.1,2.32,5.67,4.01,7.72,1.73,2.09,3.88,3.73,6.44,4.92,2.56,1.19,5.24,1.79,8.05,1.79,2.08,0,4.05-.34,5.91-1.01,1.87-.67,3.41-1.6,4.65-2.8,1.39-1.31,2.58-3.39,3.58-6.27l1.22.39c-1,4.37-3.16,7.66-6.46,9.88-3.3,2.22-7.69,3.33-13.18,3.33-4.75,0-8.82-.73-12.22-2.18-3.4-1.46-6.27-3.69-8.63-6.72-3.28-4.22-4.92-9.4-4.92-15.55,0-8.39,3.11-14.98,9.32-19.75,4.52-3.47,9.67-5.2,15.46-5.2,3.09,0,5.95.53,8.57,1.6,2.63,1.06,4.84,2.6,6.66,4.62,2.82,3.13,4.23,7.05,4.23,11.75h-33.94ZM463.1,255.18c-.27-3.73-.98-6.6-2.13-8.62-1.04-1.83-2.42-3.27-4.15-4.34-1.73-1.06-3.57-1.6-5.53-1.6-3.3,0-6.2,1.38-8.68,4.14-2.48,2.76-3.95,6.23-4.41,10.41h24.9Z"/>
-          </g>
-        </svg>
+      <div class="footer-logo" style="margin-bottom:14px">
+        <span style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:9px;">
+          <!-- Tiny icon mark in white for footer -->
+          <svg width="24" height="24" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path fill="#C4950C" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
+          </svg>
+          FTL <span style="color:#C4950C">Insurance</span>
+        </span>
       </div>
-      <p>Licensed insurer in Cambodia since 1999. Regulated by the Insurance Regulator of Cambodia. All products subject to policy terms.</p>
+      <p>Licensed insurer in Cambodia since 1999. Supervised by the Insurance Regulator of Cambodia. All products are subject to policy terms and conditions.</p>
     </div>
 
-    <!-- Link columns -->
     <div class="footer-col">
       <h4>Company</h4>
       <ul>
@@ -775,260 +681,290 @@
 </footer>
 
 
-<!-- ══════════════════════════════════════
+<!-- ═══════════════════════════════════
      SCRIPTS
-══════════════════════════════════════ -->
+═══════════════════════════════════ -->
 <script>
-/* ──────────────────────────────────────
-   1. NAV: scroll effect + active links
-──────────────────────────────────────── */
-const nav = document.getElementById('nav');
-const sections = document.querySelectorAll('section[id], div[id="home"]');
-const navLinks = document.querySelectorAll('.nav-links a');
+'use strict';
+
+/* ──────────────────────────────
+   TINY DOM HELPERS
+────────────────────────────── */
+const $  = (s, c) => (c || document).querySelector(s);
+const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+
+
+/* ──────────────────────────────
+   1. NAV — scroll class + active link
+────────────────────────────── */
+const navEl = $('#nav');
 
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 50);
-  // active link
-  let current = '';
-  sections.forEach(s => {
-    if (window.scrollY >= s.offsetTop - 120) current = s.id;
+  navEl.classList.toggle('scrolled', window.scrollY > 50);
+  let cur = '';
+  $$('section[id]').forEach(s => {
+    if (window.scrollY + 120 >= s.offsetTop) cur = s.id;
   });
-  navLinks.forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
-  });
+  $$('.nav-links a').forEach(a =>
+    a.classList.toggle('active', a.getAttribute('href') === '#' + cur)
+  );
 }, { passive: true });
 
 
-/* ──────────────────────────────────────
-   2. MOBILE DRAWER
-──────────────────────────────────────── */
-const hamburger = document.getElementById('hamburger');
-const drawer    = document.getElementById('drawer');
-function closeDrawer() {
-  hamburger.classList.remove('open');
-  drawer.classList.remove('open');
-  hamburger.setAttribute('aria-expanded', 'false');
-}
-hamburger.addEventListener('click', () => {
-  const open = hamburger.classList.toggle('open');
-  drawer.classList.toggle('open', open);
-  hamburger.setAttribute('aria-expanded', String(open));
-});
+/* ──────────────────────────────
+   2. MOBILE HAMBURGER DRAWER
+────────────────────────────── */
+const hBtn   = $('#hamburger');
+const drawer = $('#mobileDrawer');
+
+const openDrawer  = () => { hBtn.classList.add('open');    drawer.classList.add('open');    hBtn.setAttribute('aria-expanded','true');  };
+const closeDrawer = () => { hBtn.classList.remove('open'); drawer.classList.remove('open'); hBtn.setAttribute('aria-expanded','false'); };
+
+hBtn.addEventListener('click', () => drawer.classList.contains('open') ? closeDrawer() : openDrawer());
+$$('.drawer-link').forEach(a => a.addEventListener('click', closeDrawer));
 document.addEventListener('click', e => {
-  if (!nav.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
+  if (!navEl.contains(e.target) && !drawer.contains(e.target)) closeDrawer();
 });
 
 
-/* ──────────────────────────────────────
-   3. COUNTER ANIMATION (hero stats)
-──────────────────────────────────────── */
-function countUp(el, target, suffix, duration) {
-  let start = null;
-  function step(ts) {
-    if (!start) start = ts;
-    const pct = Math.min((ts - start) / duration, 1);
-    const val = Math.floor(pct * target);
-    el.textContent = val.toLocaleString() + suffix;
-    if (pct < 1) requestAnimationFrame(step);
-  }
-  requestAnimationFrame(step);
+/* ──────────────────────────────
+   3. HERO COUNTERS — ease-out cubic
+────────────────────────────── */
+function countUp(el, end, suffix, ms) {
+  const t0 = performance.now();
+  const tick = (now) => {
+    const p = Math.min((now - t0) / ms, 1);
+    el.textContent = Math.floor((1 - Math.pow(1 - p, 3)) * end).toLocaleString() + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+  };
+  requestAnimationFrame(tick);
 }
-let countersRun = false;
-new IntersectionObserver(entries => {
-  if (entries[0].isIntersecting && !countersRun) {
-    countersRun = true;
+
+let countersFired = false;
+new IntersectionObserver(([e]) => {
+  if (e.isIntersecting && !countersFired) {
+    countersFired = true;
     setTimeout(() => {
-      countUp(document.getElementById('sc1'), 250000, '+',  2000);
-      countUp(document.getElementById('sc2'), 98,     '%',  1800);
-      countUp(document.getElementById('sc3'), 25,     '+',  1600);
-      countUp(document.getElementById('sc4'), 99,     '%',  1800);
-    }, 1200);
+      countUp($('#cnt-families'), 250000, '+',  2400);
+      countUp($('#cnt-claims'),   98,     '%',  2000);
+      countUp($('#cnt-years'),    25,     '+',  1800);
+      countUp($('#cnt-sat'),      99,     '%',  2000);
+    }, 900);
   }
-}, { threshold: 0.4 }).observe(document.getElementById('home'));
+}, { threshold: 0.4 }).observe($('#home'));
 
 
-/* ──────────────────────────────────────
-   4. SCROLL REVEAL — resets on scroll up
-──────────────────────────────────────── */
-const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-const revealObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    } else {
-      // reset when scrolled back above the element
-      if (e.boundingClientRect.top > 0) {
-        e.target.classList.remove('visible');
-      }
-    }
-  });
-}, { threshold: 0.15 });
-revealEls.forEach(el => revealObs.observe(el));
+/* ──────────────────────────────
+   4. SCROLL CUE
+────────────────────────────── */
+const cue = $('#scrollCue');
+if (cue) {
+  const go = () => $('#about').scrollIntoView({ behavior: 'smooth' });
+  cue.addEventListener('click', go);
+  cue.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' '){ e.preventDefault(); go(); } });
+}
 
 
-/* ──────────────────────────────────────
-   5. PRODUCT CARDS — WOW reveal + reset
-──────────────────────────────────────── */
-const track    = document.getElementById('productTrack');
-const allCards = Array.from(track.querySelectorAll('.pcard'));
-const navDots  = document.getElementById('productNav');
-
-// Build dots
-function buildDots() {
-  navDots.innerHTML = '';
-  const visibleCards = allCards.filter(c => c.style.display !== 'none');
-  visibleCards.forEach((_, i) => {
-    const dot = document.createElement('button');
-    dot.className = 'prod-dot' + (i === 0 ? ' active' : '');
-    dot.setAttribute('aria-label', `Go to product ${i + 1}`);
-    dot.addEventListener('click', () => {
-      const cards = allCards.filter(c => c.style.display !== 'none');
-      if (cards[i]) {
-        cards[i].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+/* ──────────────────────────────
+   5. GENERIC SCROLL REVEAL
+      Adds .visible on enter,
+      removes .visible when element scrolls back ABOVE viewport
+────────────────────────────── */
+(function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(({ target, isIntersecting, boundingClientRect }) => {
+      if (isIntersecting) {
+        target.classList.add('visible');
+      } else if (boundingClientRect.top > 0) {
+        // Element is above the screen — reset so it can re-animate on scroll down
+        target.classList.remove('visible');
       }
     });
-    navDots.appendChild(dot);
-  });
-}
-buildDots();
+  }, { threshold: 0.13 });
 
-// Update active dot on scroll
-function updateDots() {
-  const cards = allCards.filter(c => c.style.display !== 'none');
-  const dots  = navDots.querySelectorAll('.prod-dot');
-  const trackLeft = track.getBoundingClientRect().left;
-  let closest = 0, minDist = Infinity;
-  cards.forEach((c, i) => {
-    const dist = Math.abs(c.getBoundingClientRect().left - trackLeft);
-    if (dist < minDist) { minDist = dist; closest = i; }
-  });
-  dots.forEach((d, i) => d.classList.toggle('active', i === closest));
-}
-track.addEventListener('scroll', updateDots, { passive: true });
+  $$('.reveal, .reveal-left, .reveal-right, .reveal-stagger')
+    .forEach(el => obs.observe(el));
+})();
 
-// Card scroll-reveal (resets on scroll up) — uses IntersectionObserver
-const cardObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
+
+/* ──────────────────────────────
+   6. PRODUCT CAROUSEL
+      · Section-level page-scroll triggers the WOW cascade
+      · Cards reset when section scrolls back above viewport
+      · Horizontal scroll also reveals cards entering view
+      · Drag (desktop) + swipe (mobile) + arrow buttons
+      · Dot indicators auto-generated & synced
+────────────────────────────── */
+(function initProducts() {
+  const track   = $('#productTrack');
+  const sect    = $('#product');
+  let   cards   = $$('.pcard', track);   // all 10 cards
+  let   visible = [...cards];            // currently shown subset
+  let   sectIn  = false;                 // is product section in page viewport?
+
+  /* Build dot buttons */
+  function buildDots(vis) {
+    const wrap = $('#productDots');
+    wrap.innerHTML = '';
+    vis.forEach((card, i) => {
+      const b = document.createElement('button');
+      b.className = 'prod-dot' + (i === 0 ? ' active' : '');
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Product ' + (i + 1));
+      b.addEventListener('click', () =>
+        card.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'start' })
+      );
+      wrap.appendChild(b);
+    });
+  }
+  buildDots(visible);
+
+  /* Sync active dot */
+  function syncDots() {
+    const vis  = cards.filter(c => c.style.display !== 'none');
+    const dots = $$('.prod-dot');
+    const tL   = track.getBoundingClientRect().left;
+    let best = 0, minD = Infinity;
+    vis.forEach((c, i) => {
+      const d = Math.abs(c.getBoundingClientRect().left - tL);
+      if (d < minD) { minD = d; best = i; }
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === best));
+  }
+  track.addEventListener('scroll', syncDots, { passive: true });
+
+  /* Cascade reveal with stagger */
+  function cascade(vis) {
+    vis.forEach((c, i) => {
+      setTimeout(() => { if (sectIn) c.classList.add('revealed'); }, i * 95 + 60);
+    });
+  }
+
+  /* Page-scroll section observer → trigger cascade OR reset */
+  new IntersectionObserver(([e]) => {
     if (e.isIntersecting) {
-      // stagger by card index
-      const idx = allCards.indexOf(e.target);
-      setTimeout(() => e.target.classList.add('revealed'), idx * 60);
-    } else {
-      // reset if track scrolled back (card left the left side)
-      e.target.classList.remove('revealed');
-    }
-  });
-}, {
-  root: track,         // observe within the scrollable track
-  threshold: 0.1
-});
-allCards.forEach(c => cardObs.observe(c));
-
-// Also trigger when the section enters viewport (page scroll)
-const sectionObs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      // Stagger all currently visible cards
-      allCards.filter(c => c.style.display !== 'none').forEach((c, i) => {
-        setTimeout(() => c.classList.add('revealed'), i * 80 + 100);
-      });
+      sectIn = true;
+      cascade(cards.filter(c => c.style.display !== 'none'));
     } else if (e.boundingClientRect.top > 0) {
-      // Scrolled back above section — reset all
-      allCards.forEach(c => c.classList.remove('revealed'));
+      // Scrolled back above → full reset
+      sectIn = false;
+      cards.forEach(c => c.classList.remove('revealed'));
     }
-  });
-}, { threshold: 0.05 });
-sectionObs.observe(document.getElementById('product'));
+  }, { threshold: 0.05 }).observe(sect);
 
-
-// Arrow nav
-document.getElementById('arrowLeft').addEventListener('click', () => {
-  track.scrollBy({ left: -340, behavior: 'smooth' });
-});
-document.getElementById('arrowRight').addEventListener('click', () => {
-  track.scrollBy({ left: 340, behavior: 'smooth' });
-});
-
-// Drag to scroll
-let isDragging = false, startX, scrollLeft;
-track.addEventListener('mousedown', e => {
-  isDragging = true; startX = e.pageX - track.offsetLeft;
-  scrollLeft = track.scrollLeft; track.style.cursor = 'grabbing';
-});
-document.addEventListener('mouseup', () => { isDragging = false; track.style.cursor = 'grab'; });
-document.addEventListener('mousemove', e => {
-  if (!isDragging) return;
-  e.preventDefault();
-  track.scrollLeft = scrollLeft - (e.pageX - track.offsetLeft - startX);
-});
-
-// Touch swipe
-let touchStartX = 0;
-track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
-track.addEventListener('touchmove', e => {
-  const diff = touchStartX - e.touches[0].clientX;
-  track.scrollLeft += diff * 0.6;
-  touchStartX = e.touches[0].clientX;
-}, { passive: true });
-
-
-/* ──────────────────────────────────────
-   6. FILTER PILLS
-──────────────────────────────────────── */
-document.querySelectorAll('.filter-pill').forEach(pill => {
-  pill.addEventListener('click', () => {
-    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
-    const filter = pill.dataset.filter;
-    allCards.forEach(c => {
-      const show = filter === 'all' || c.dataset.category === filter;
-      c.style.display = show ? '' : 'none';
-      if (!show) c.classList.remove('revealed');
+  /* Horizontal observer — reveal cards entering track viewport,
+     re-hide cards that scroll back off the left edge */
+  const hObs = new IntersectionObserver(entries => {
+    entries.forEach(({ target, isIntersecting, boundingClientRect }) => {
+      if (isIntersecting && sectIn) {
+        target.classList.add('revealed');
+      } else if (!isIntersecting && boundingClientRect.left < 0 && sectIn) {
+        target.classList.remove('revealed');
+      }
     });
-    track.scrollLeft = 0;
-    buildDots();
-    // Re-stagger visible cards
-    const visible = allCards.filter(c => c.style.display !== 'none');
-    visible.forEach((c, i) => {
-      setTimeout(() => c.classList.add('revealed'), i * 80 + 50);
+  }, { root: track, threshold: 0.12 });
+  cards.forEach(c => hObs.observe(c));
+
+  /* Arrow buttons */
+  $('#trackPrev').addEventListener('click', () => track.scrollBy({ left: -340, behavior: 'smooth' }));
+  $('#trackNext').addEventListener('click', () => track.scrollBy({ left:  340, behavior: 'smooth' }));
+
+  /* Desktop drag */
+  let drag = false, dX = 0, dSL = 0;
+  track.addEventListener('mousedown', e => {
+    drag = true; dX = e.pageX - track.offsetLeft; dSL = track.scrollLeft;
+    track.style.cursor = 'grabbing'; track.style.userSelect = 'none';
+  });
+  document.addEventListener('mouseup', () => {
+    drag = false; track.style.cursor = ''; track.style.userSelect = '';
+  });
+  document.addEventListener('mousemove', e => {
+    if (!drag) return;
+    e.preventDefault();
+    track.scrollLeft = dSL - (e.pageX - track.offsetLeft - dX);
+  });
+
+  /* Touch swipe */
+  let tx0 = 0;
+  track.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchmove',  e => {
+    const dx = tx0 - e.touches[0].clientX;
+    track.scrollLeft += dx * 0.8;
+    tx0 = e.touches[0].clientX;
+  }, { passive: true });
+
+  /* Filter pills */
+  $$('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      $$('.filter-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const cat = pill.dataset.cat;
+      cards.forEach(c => c.classList.remove('revealed'));
+
+      requestAnimationFrame(() => {
+        visible = [];
+        cards.forEach(c => {
+          const show = cat === 'all' || c.dataset.cat === cat;
+          c.style.display = show ? '' : 'none';
+          if (show) visible.push(c);
+        });
+        track.scrollLeft = 0;
+        buildDots(visible);
+        cascade(visible);
+      });
     });
   });
-});
+})();
 
 
-/* ──────────────────────────────────────
+/* ──────────────────────────────
    7. WHY US TICKER
-──────────────────────────────────────── */
-const reasons = [
-  { ic: '⚡', t: '15-Minute Approval'      },
-  { ic: '🔒', t: 'Premium Lock for Life'   },
-  { ic: '💸', t: '48-Hour Claim Payout'    },
-  { ic: '🤝', t: 'No Hidden Fees, Ever'    },
-  { ic: '📱', t: 'Manage 100% Online'      },
-  { ic: '🏆', t: 'A+ AM Best Rating'       },
-  { ic: '👨‍👩‍👧', t: 'Family Bundle Discounts' },
-  { ic: '🌍', t: 'Global Emergency Cover'  },
-  { ic: '📊', t: 'Real-Time Dashboard'     },
-  { ic: '🎓', t: 'Free Financial Advisor'  },
-  { ic: '🇰🇭', t: 'Khmer-Speaking Support' },
-  { ic: '💼', t: 'Group Corporate Plans'   },
-];
-const ticker = document.getElementById('whyTicker');
-[...reasons, ...reasons].forEach(r => {
-  const chip = document.createElement('div');
-  chip.className = 't-chip';
-  chip.innerHTML = `<span class="t-ic">${r.ic}</span><span class="t-txt">${r.t}</span>`;
-  ticker.appendChild(chip);
-});
+────────────────────────────── */
+(function initTicker() {
+  const reasons = [
+    { ic:'⚡',  t:'15-Minute Approval'       },
+    { ic:'🔒',  t:'Premium Lock for Life'    },
+    { ic:'💸',  t:'48-Hour Claim Payout'     },
+    { ic:'🤝',  t:'No Hidden Fees, Ever'     },
+    { ic:'📱',  t:'Manage 100% Online'       },
+    { ic:'🏆',  t:'A+ Regulator Rating'      },
+    { ic:'👨‍👩‍👧‍👦',t:'Family Bundle Discounts' },
+    { ic:'🌍',  t:'Global Emergency Cover'   },
+    { ic:'📊',  t:'Real-Time Dashboard'      },
+    { ic:'🎓',  t:'Free Financial Advisor'   },
+    { ic:'🇰🇭', t:'Khmer-Speaking Support'   },
+    { ic:'💼',  t:'Corporate Group Plans'    },
+  ];
+  const el = $('#whyTicker');
+  [...reasons, ...reasons].forEach(r => {
+    const c = document.createElement('div');
+    c.className = 't-chip';
+    c.innerHTML = `<span class="t-ic">${r.ic}</span><span class="t-txt">${r.t}</span>`;
+    el.appendChild(c);
+  });
+})();
 
 
-/* ──────────────────────────────────────
-   8. SCROLL CUE keyboard support
-──────────────────────────────────────── */
-document.querySelector('.scroll-cue')?.addEventListener('keydown', e => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-  }
+/* ──────────────────────────────
+   8. CONTACT FORM
+────────────────────────────── */
+$('#contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const btn  = this.querySelector('.form-submit');
+  const orig = btn.textContent;
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  // Swap with your real endpoint / API call here
+  setTimeout(() => {
+    btn.textContent = '✓ Request Sent!';
+    btn.style.background = '#2e7d32';
+    this.reset();
+    setTimeout(() => {
+      btn.textContent = orig;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 3500);
+  }, 1200);
 });
 </script>
 </body>

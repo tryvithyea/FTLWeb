@@ -57,8 +57,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 
   padding: 0 60px;
 
-  background: transparent;
-  z-index: 1000
+  background: rgba(255,255,255,0.98); /* Light white for elegant look */
+  z-index: 1000;
+  box-shadow: 0 2px 24px rgba(38,55,70,0.06);
 }
 #nav.scrolled {
   background: rgba(255,255,255,0.95);
@@ -102,7 +103,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 .nav-links { display: flex; gap: 36px; list-style: none; }
 .nav-links a {
   font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em;
-  text-transform: uppercase; color: var(--white);
+  text-transform: uppercase; color: var(--dark);
   position: relative; padding-bottom: 4px;
   transition: color 0.25s;
 }
@@ -123,6 +124,8 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   text-transform: uppercase;
   transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
   box-shadow: 0 2px 12px rgba(196,150,12,0.30);
+  margin-left: auto; /* Fix button push to top */
+  align-self: center;
 }
 .nav-cta:hover {
   background: var(--gold-lt);
@@ -137,7 +140,7 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 .nav-hamburger span {
   display: block; width: 24px; height: 2px;
-  background: var(--white); border-radius: 2px;
+  background: var(--dark); border-radius: 2px;
   transition: background 0.25s, transform 0.3s, opacity 0.3s;
 }
 #nav.scrolled .nav-hamburger span { background: var(--dark); }

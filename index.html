@@ -1,157 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FTL Insurance — Protection for Every Stage of Life</title>
-  <meta name="description" content="FTL Insurance offers life, health, wealth and property coverage across Cambodia. Honest, affordable, always there when it matters." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-
-  <!--
-    Supplemental styles for elements not covered by style.css.
-    Rules here either:
-    - Add new components (filter pills)
-    - Override #product background to dark (style.css default is --off-white)
-    - Retheme .pcard for the dark product section
-    All other classes (.reveal, .pcard, .ticker, etc.) come from style.css.
-  -->
-  <style>
-    /* ── #product: dark themed section for WOW contrast ── */
-    #product {
-      background: var(--dark);
-      position: relative;
-      overflow: hidden;
-    }
-    #product::before {
-      content: '';
-      position: absolute; inset: 0; z-index: 0; pointer-events: none;
-      background-image:
-        linear-gradient(rgba(196,150,12,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(196,150,12,.04) 1px, transparent 1px);
-      background-size: 68px 68px;
-    }
-    #product .products-top,
-    #product .product-filters,
-    #product .product-nav { position: relative; z-index: 1; }
-    #product .products-top { padding-top: 100px; }
-    #product .section-title { color: var(--white); }
-    #product .section-desc  { color: rgba(255,255,255,.55); }
-
-    /* Cards rethemed for dark bg */
-    .pcard {
-      background: rgba(255,255,255,.045);
-      border-color: rgba(196,150,12,.22);
-    }
-    .pcard:hover {
-      background: rgba(255,255,255,.08);
-      box-shadow: 0 20px 60px rgba(196,150,12,.22);
-    }
-    .pcard-name  { color: var(--white); }
-    .pcard-price { color: var(--gold-lt); }
-    .pcard-desc  { color: rgba(255,255,255,.50); }
-    .pcard-feat li { color: rgba(255,255,255,.55); }
-    .pcard-btn {
-      background: transparent;
-      color: var(--gold);
-      border: 1.5px solid rgba(196,150,12,.45);
-    }
-    .pcard-btn:hover {
-      background: var(--gold);
-      color: var(--dark);
-      border-color: var(--gold);
-    }
-    .pcard--featured {
-      background: linear-gradient(150deg, rgba(196,150,12,.20), rgba(196,150,12,.06));
-      border-color: var(--gold);
-      box-shadow: 0 8px 40px rgba(196,150,12,.20);
-    }
-    .pcard--featured .pcard-name  { color: var(--white); }
-    .pcard--featured .pcard-price { color: var(--gold); }
-    .pcard--featured .pcard-btn   { background: var(--gold); color: var(--dark); border-color: var(--gold); }
-    .pcard--featured .pcard-btn:hover { background: var(--gold-lt); }
-    .pcard--featured .pcard-feat li { color: rgba(255,255,255,.62); }
-
-    /* Track fade edges on dark */
-    .product-track-wrap::before { background: linear-gradient(90deg,  var(--dark), transparent); }
-    .product-track-wrap::after  { background: linear-gradient(-90deg, var(--dark), transparent); }
-
-    /* Arrow buttons on dark */
-    .product-arrows button { border-color: rgba(196,150,12,.35); color: rgba(255,255,255,.7); }
-    .product-arrows button:hover { border-color: var(--gold); background: var(--gold); color: var(--dark); }
-
-    /* Active dot */
-    .prod-dot.active { background: var(--gold); transform: scale(1.4); }
-
-    /* ── Filter pills (new component) ── */
-    .product-filters {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      padding: 28px 80px 0;
-      position: relative;
-      z-index: 1;
-    }
-    .filter-pill {
-      padding: 8px 22px;
-      border-radius: 50px;
-      cursor: pointer;
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      font-family: 'Inter', sans-serif;
-      border: 1.5px solid rgba(196,150,12,.35);
-      color: rgba(255,255,255,.55);
-      background: transparent;
-      transition: background .22s, color .22s, border-color .22s, transform .15s;
-    }
-    .filter-pill:hover  { border-color: var(--gold); color: var(--gold); }
-    .filter-pill.active { background: var(--gold); border-color: var(--gold); color: var(--dark); }
-    .filter-pill:active { transform: scale(.96); }
-
-    /* ── About: ensure white bg ── */
-    #about { background: var(--white); }
-
-    /* ── Why: mid-dark strip ── */
-    #why { background: #192633; }
-    #why .why-header .section-title { color: var(--white); }
-    .ticker-wrap::before { background: linear-gradient(90deg,  #192633, transparent); }
-    .ticker-wrap::after  { background: linear-gradient(-90deg, #192633, transparent); }
-
-    /* ── Nav logo text ── */
-    .nav-logo {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.2rem;
-      font-weight: 700;
-      gap: 10px;
-      display: flex;
-      align-items: center;
-    }
-    .nav-logo em { font-style: normal; color: var(--gold); }
-
-    /* ── Mobile ── */
-    @media (max-width: 768px) {
-      .product-filters { padding: 20px 24px 0; }
-      #product .products-top { padding-top: 60px; }
-    }
-  </style>
+  <meta name="description" content="FTL Insurance offers life, health, wealth and property coverage across Cambodia."/>
+  <link rel="icon" type="image/svg+xml" href="assets/svg/icon.svg"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
 </head>
 <body>
-
 
 <!-- ═══════════════════════════════════
      NAV
 ═══════════════════════════════════ -->
 <header id="nav">
-  <a class="nav-logo" href="#home" aria-label="FTL Insurance — back to home">
-    <!-- Icon mark from source/Icon.svg -->
-    <svg width="28" height="28" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-      <path fill="#C4950C" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
-    </svg>
-    FTL <em>Insurance</em>
+
+  <!-- Logo: light version for hero, dark version after scroll -->
+  <a class="nav-logo" href="#home" aria-label="FTL Insurance home">
+    <img class="logo-light" src="assets/svg/logo.svg" alt="FTL Insurance"/>
+    <img class="logo-dark"  src="assets/svg/logo.svg" alt="FTL Insurance"/>
   </a>
 
   <ul class="nav-links">
@@ -162,6 +32,7 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
 
+  <!-- ONE CTA only -->
   <a href="#contact" class="nav-cta">Get a Quote</a>
 
   <button class="nav-hamburger" id="hamburger"
@@ -186,12 +57,12 @@
 
 
 <!-- ═══════════════════════════════════
-     HERO
+     HERO — warm white/gold, no dark bg
 ═══════════════════════════════════ -->
 <section id="home">
-  <div class="hero-bg-img"  aria-hidden="true"></div>
-  <div class="hero-pattern" aria-hidden="true"></div>
-  <div class="hero-accent"  aria-hidden="true"></div>
+  <div class="hero-pattern"  aria-hidden="true"></div>
+  <div class="hero-ring"     aria-hidden="true"></div>
+  <div class="hero-arc"      aria-hidden="true"></div>
 
   <div class="hero-content">
     <p class="hero-eyebrow">Trusted by 250,000+ families across Cambodia since 1999</p>
@@ -215,17 +86,14 @@
         <div class="stat-num" id="cnt-families">0</div>
         <div class="stat-label">Families Protected</div>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat">
         <div class="stat-num" id="cnt-claims">0</div>
         <div class="stat-label">Claims Paid</div>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat">
         <div class="stat-num" id="cnt-years">0</div>
         <div class="stat-label">Years of Trust</div>
       </div>
-      <div class="stat-divider" aria-hidden="true"></div>
       <div class="stat">
         <div class="stat-num" id="cnt-sat">0</div>
         <div class="stat-label">Satisfaction Rate</div>
@@ -243,23 +111,223 @@
 
 
 <!-- ═══════════════════════════════════
+     PRODUCTS — WOW drag carousel
+     10 cards · category pills · stagger cascade
+     Resets on scroll-up
+═══════════════════════════════════ -->
+<section id="product">
+
+  <div class="products-top reveal">
+    <div class="products-top-left">
+      <span class="section-eyebrow">Our Products</span>
+      <h2 class="section-title">Every life stage. <em>Covered.</em></h2>
+      <p class="section-desc">Ten tailored products — from your first job to your grandchildren's future. Drag to explore or filter by category.</p>
+    </div>
+    <div class="product-arrows">
+      <button id="trackPrev" aria-label="Scroll products left">&#8592;</button>
+      <button id="trackNext" aria-label="Scroll products right">&#8594;</button>
+    </div>
+  </div>
+
+  <!-- Category filter pills -->
+  <div class="product-filters" role="group" aria-label="Filter products by category">
+    <button class="filter-pill active" data-cat="all">All</button>
+    <button class="filter-pill" data-cat="life">Life</button>
+    <button class="filter-pill" data-cat="health">Health</button>
+    <button class="filter-pill" data-cat="wealth">Wealth</button>
+    <button class="filter-pill" data-cat="property">Property</button>
+  </div>
+
+  <!-- Drag-scroll track -->
+  <div class="product-track-wrap">
+    <div class="product-track" id="productTrack">
+
+      <!-- 1 · Life -->
+      <article class="pcard" data-cat="life" style="transition-delay:.05s">
+        <div class="pcard-icon">🌱</div>
+        <span class="pcard-tag">Life · Starter</span>
+        <h3 class="pcard-name">Term Life</h3>
+        <p class="pcard-desc">Fixed-period protection at the lowest premium. Perfect for young families beginning their coverage journey.</p>
+        <div class="pcard-price"><sup>$</sup>18<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Up to $500K coverage</li>
+          <li>10, 20, or 30-year terms</li>
+          <li>No medical exam required</li>
+          <li>Cancel anytime, no penalty</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 2 · Life FEATURED -->
+      <article class="pcard pcard--featured" data-cat="life" style="transition-delay:.14s">
+        <div class="pcard-badge">Most Popular</div>
+        <div class="pcard-icon">⭐</div>
+        <span class="pcard-tag">Life · Recommended</span>
+        <h3 class="pcard-name">Whole Life</h3>
+        <p class="pcard-desc">Lifetime coverage with tax-deferred cash value that grows year after year — protection that also builds wealth.</p>
+        <div class="pcard-price"><sup>$</sup>54<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Lifelong — never expires</li>
+          <li>Cash value accumulation</li>
+          <li>Up to $2M coverage</li>
+          <li>Annual dividends paid</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 3 · Life -->
+      <article class="pcard" data-cat="life" style="transition-delay:.23s">
+        <div class="pcard-icon">👑</div>
+        <span class="pcard-tag">Life · Premium</span>
+        <h3 class="pcard-name">Universal Life</h3>
+        <p class="pcard-desc">Flexible premiums and investment-linked growth. Adjust your coverage as your life and ambitions evolve.</p>
+        <div class="pcard-price"><sup>$</sup>120<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Flexible premium payments</li>
+          <li>Investment component</li>
+          <li>Unlimited coverage ceiling</li>
+          <li>Dedicated wealth advisor</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 4 · Life -->
+      <article class="pcard" data-cat="life" style="transition-delay:.32s">
+        <div class="pcard-icon">🌏</div>
+        <span class="pcard-tag">Life · Senior</span>
+        <h3 class="pcard-name">Legacy Plan</h3>
+        <p class="pcard-desc">Designed for ages 50–75. Leave a guaranteed inheritance for the people you love — no medical questions asked.</p>
+        <div class="pcard-price"><sup>$</sup>75<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Guaranteed acceptance</li>
+          <li>Coverage up to $250K</li>
+          <li>Funeral cost advance</li>
+          <li>Fixed premium for life</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 5 · Health -->
+      <article class="pcard" data-cat="health" style="transition-delay:.41s">
+        <div class="pcard-icon">🏥</div>
+        <span class="pcard-tag">Health · Essential</span>
+        <h3 class="pcard-name">MediCare Basic</h3>
+        <p class="pcard-desc">Covers hospitalisation, surgery, and emergency care so a medical bill never derails your family's finances.</p>
+        <div class="pcard-price"><sup>$</sup>32<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>In &amp; out-patient coverage</li>
+          <li>50+ partner hospitals</li>
+          <li>Cashless admission</li>
+          <li>24/7 telemedicine</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 6 · Health -->
+      <article class="pcard" data-cat="health" style="transition-delay:.50s">
+        <div class="pcard-icon">💊</div>
+        <span class="pcard-tag">Health · Plus</span>
+        <h3 class="pcard-name">MediCare Plus</h3>
+        <p class="pcard-desc">Extended cover including specialist consultations, dental, and optical for families wanting complete peace of mind.</p>
+        <div class="pcard-price"><sup>$</sup>68<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Everything in Basic</li>
+          <li>Dental &amp; optical cover</li>
+          <li>Annual health screening</li>
+          <li>Global emergency cover</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 7 · Wealth -->
+      <article class="pcard" data-cat="wealth" style="transition-delay:.59s">
+        <div class="pcard-icon">📈</div>
+        <span class="pcard-tag">Wealth · Growth</span>
+        <h3 class="pcard-name">Investment-Linked</h3>
+        <p class="pcard-desc">Combine life protection with market-linked returns. Your premium protects your family and grows your money.</p>
+        <div class="pcard-price"><sup>$</sup>85<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>8 fund options</li>
+          <li>Switch funds anytime</li>
+          <li>Life cover from Day 1</li>
+          <li>Quarterly statements</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 8 · Wealth -->
+      <article class="pcard" data-cat="wealth" style="transition-delay:.68s">
+        <div class="pcard-icon">🎓</div>
+        <span class="pcard-tag">Wealth · Education</span>
+        <h3 class="pcard-name">EduSave Plan</h3>
+        <p class="pcard-desc">Guaranteed payouts at key education milestones — your child's university future secured, no matter what happens.</p>
+        <div class="pcard-price"><sup>$</sup>45<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Guaranteed maturity payout</li>
+          <li>Premium waiver on death</li>
+          <li>Annual policy bonus</li>
+          <li>Flexible payout dates</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 9 · Property -->
+      <article class="pcard" data-cat="property" style="transition-delay:.77s">
+        <div class="pcard-icon">🏠</div>
+        <span class="pcard-tag">Property · Home</span>
+        <h3 class="pcard-name">Home Protect</h3>
+        <p class="pcard-desc">Your home and contents covered against fire, flood, theft, and accidental damage — with alternative accommodation.</p>
+        <div class="pcard-price"><sup>$</sup>22<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Building &amp; contents cover</li>
+          <li>Flood &amp; fire protection</li>
+          <li>Theft &amp; vandalism</li>
+          <li>Alternative accommodation</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+      <!-- 10 · Property -->
+      <article class="pcard" data-cat="property" style="transition-delay:.86s">
+        <div class="pcard-icon">🚗</div>
+        <span class="pcard-tag">Property · Auto</span>
+        <h3 class="pcard-name">AutoShield</h3>
+        <p class="pcard-desc">Comprehensive motor cover with accident, theft, third-party liability, and 24/7 roadside rescue across Cambodia.</p>
+        <div class="pcard-price"><sup>$</sup>28<sub>/month</sub></div>
+        <ul class="pcard-feat">
+          <li>Comprehensive cover</li>
+          <li>24/7 roadside assistance</li>
+          <li>Windscreen replacement</li>
+          <li>No-claim bonus up to 55%</li>
+        </ul>
+        <button class="pcard-btn">Get This Plan →</button>
+      </article>
+
+    </div><!-- /product-track -->
+  </div><!-- /product-track-wrap -->
+
+  <div class="product-nav" id="productDots" role="tablist" aria-label="Product navigation dots"></div>
+
+</section>
+
+
+<!-- ═══════════════════════════════════
      ABOUT
 ═══════════════════════════════════ -->
 <section id="about">
-  <!-- Visual / animated side -->
+
   <div class="about-visual reveal-left">
     <div class="rings-wrap" aria-hidden="true">
       <div class="ring"></div>
       <div class="ring"></div>
       <div class="ring"></div>
     </div>
-    <!-- FTL icon mark as pulsing centre element -->
     <div class="about-icon-center" aria-hidden="true">
-      <svg width="44" height="44" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-        <path fill="#263746" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
+      <!-- FTL Icon mark in white -->
+      <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#FFFFFF" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
       </svg>
     </div>
-    <!-- Floating stat chips -->
     <div class="float-chip" aria-hidden="true">
       <span class="chip-icon">🏆</span>
       <div><div class="chip-val">A+</div><div class="chip-label">Regulator Rating</div></div>
@@ -274,14 +342,10 @@
     </div>
   </div>
 
-  <!-- Text side -->
   <div class="reveal-right">
     <span class="section-eyebrow">Why FTL</span>
     <h2 class="section-title">Insurance built around <em>your life</em></h2>
-    <p class="section-desc">
-      We believe protection should be honest, affordable, and genuinely useful —
-      not buried in exclusion clauses or complicated jargon.
-    </p>
+    <p class="section-desc">We believe protection should be honest, affordable, and genuinely useful — not buried in exclusion clauses or complicated jargon.</p>
     <ul class="about-list">
       <li class="about-item">
         <div class="about-item-icon">⚡</div>
@@ -306,217 +370,12 @@
       </li>
     </ul>
   </div>
-</section>
-
-
-<!-- ═══════════════════════════════════
-     PRODUCTS — WOW CAROUSEL
-     10 cards · filter pills · drag & touch
-     Staggered reveal · resets on scroll-up
-═══════════════════════════════════ -->
-<section id="product">
-
-  <!-- Header row -->
-  <div class="products-top reveal">
-    <div class="products-top-left">
-      <span class="section-eyebrow">Our Products</span>
-      <h2 class="section-title">Every life stage. <em>Covered.</em></h2>
-      <p class="section-desc">
-        Ten tailored products — from your first job to your grandchildren's future.
-        Filter by category or drag to explore all plans.
-      </p>
-    </div>
-    <div class="product-arrows">
-      <button id="trackPrev" aria-label="Scroll products left">&#8592;</button>
-      <button id="trackNext" aria-label="Scroll products right">&#8594;</button>
-    </div>
-  </div>
-
-  <!-- Category filter pills -->
-  <div class="product-filters" role="group" aria-label="Filter products by category">
-    <button class="filter-pill active" data-cat="all">All</button>
-    <button class="filter-pill" data-cat="life">Life</button>
-    <button class="filter-pill" data-cat="health">Health</button>
-    <button class="filter-pill" data-cat="wealth">Wealth</button>
-    <button class="filter-pill" data-cat="property">Property</button>
-  </div>
-
-  <!-- Horizontal drag-to-scroll track -->
-  <div class="product-track-wrap">
-    <div class="product-track" id="productTrack">
-
-      <!-- 1 -->
-      <article class="pcard" data-cat="life">
-        <div class="pcard-icon">🌱</div>
-        <span class="pcard-tag">Life · Starter</span>
-        <h3 class="pcard-name">Term Life</h3>
-        <p class="pcard-desc">Fixed-period protection at the lowest premium. Ideal for young families beginning their coverage journey.</p>
-        <div class="pcard-price"><sup>$</sup>18<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Up to $500K coverage</li>
-          <li>10, 20, or 30-year terms</li>
-          <li>No medical exam required</li>
-          <li>Cancel anytime, no penalty</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 2  FEATURED -->
-      <article class="pcard pcard--featured" data-cat="life">
-        <div class="pcard-badge">Most Popular</div>
-        <div class="pcard-icon">⭐</div>
-        <span class="pcard-tag">Life · Recommended</span>
-        <h3 class="pcard-name">Whole Life</h3>
-        <p class="pcard-desc">Lifetime coverage with tax-deferred cash value that grows year after year — protection that also builds wealth.</p>
-        <div class="pcard-price"><sup>$</sup>54<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Lifelong — never expires</li>
-          <li>Cash value accumulation</li>
-          <li>Up to $2M coverage</li>
-          <li>Annual dividends paid</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 3 -->
-      <article class="pcard" data-cat="life">
-        <div class="pcard-icon">👑</div>
-        <span class="pcard-tag">Life · Premium</span>
-        <h3 class="pcard-name">Universal Life</h3>
-        <p class="pcard-desc">Flexible premiums and investment-linked growth. Adjust your coverage as your life and ambitions evolve over time.</p>
-        <div class="pcard-price"><sup>$</sup>120<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Flexible premium payments</li>
-          <li>Investment component</li>
-          <li>Unlimited coverage ceiling</li>
-          <li>Dedicated wealth advisor</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 4 -->
-      <article class="pcard" data-cat="life">
-        <div class="pcard-icon">🌏</div>
-        <span class="pcard-tag">Life · Senior</span>
-        <h3 class="pcard-name">Legacy Plan</h3>
-        <p class="pcard-desc">Designed for ages 50–75. Leave a guaranteed inheritance for the people you love — no medical questions asked.</p>
-        <div class="pcard-price"><sup>$</sup>75<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Guaranteed acceptance</li>
-          <li>Coverage up to $250K</li>
-          <li>Funeral cost advance</li>
-          <li>Fixed premium for life</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 5 -->
-      <article class="pcard" data-cat="health">
-        <div class="pcard-icon">🏥</div>
-        <span class="pcard-tag">Health · Essential</span>
-        <h3 class="pcard-name">MediCare Basic</h3>
-        <p class="pcard-desc">Covers hospitalisation, surgery, and emergency care so a medical bill never derails your family's finances.</p>
-        <div class="pcard-price"><sup>$</sup>32<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>In &amp; out-patient coverage</li>
-          <li>50+ partner hospitals</li>
-          <li>Cashless admission</li>
-          <li>24/7 telemedicine</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 6 -->
-      <article class="pcard" data-cat="health">
-        <div class="pcard-icon">💊</div>
-        <span class="pcard-tag">Health · Plus</span>
-        <h3 class="pcard-name">MediCare Plus</h3>
-        <p class="pcard-desc">Extended cover including specialist consultations, dental, and optical for families wanting complete peace of mind.</p>
-        <div class="pcard-price"><sup>$</sup>68<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Everything in Basic</li>
-          <li>Dental &amp; optical cover</li>
-          <li>Annual health screening</li>
-          <li>Global emergency cover</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 7 -->
-      <article class="pcard" data-cat="wealth">
-        <div class="pcard-icon">📈</div>
-        <span class="pcard-tag">Wealth · Growth</span>
-        <h3 class="pcard-name">Investment-Linked</h3>
-        <p class="pcard-desc">Combine life protection with market-linked returns. Your premium protects your family and grows your money at once.</p>
-        <div class="pcard-price"><sup>$</sup>85<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>8 fund options</li>
-          <li>Switch funds anytime</li>
-          <li>Life cover from Day 1</li>
-          <li>Quarterly statements</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 8 -->
-      <article class="pcard" data-cat="wealth">
-        <div class="pcard-icon">🎓</div>
-        <span class="pcard-tag">Wealth · Education</span>
-        <h3 class="pcard-name">EduSave Plan</h3>
-        <p class="pcard-desc">Guaranteed payouts at key education milestones — your child's university future secured, no matter what happens.</p>
-        <div class="pcard-price"><sup>$</sup>45<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Guaranteed maturity payout</li>
-          <li>Premium waiver on death</li>
-          <li>Annual policy bonus</li>
-          <li>Flexible payout dates</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 9 -->
-      <article class="pcard" data-cat="property">
-        <div class="pcard-icon">🏠</div>
-        <span class="pcard-tag">Property · Home</span>
-        <h3 class="pcard-name">Home Protect</h3>
-        <p class="pcard-desc">Your home and contents covered against fire, flood, theft, and accidental damage — with alternative accommodation included.</p>
-        <div class="pcard-price"><sup>$</sup>22<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Building &amp; contents cover</li>
-          <li>Flood &amp; fire protection</li>
-          <li>Theft &amp; vandalism</li>
-          <li>Alternative accommodation</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-      <!-- 10 -->
-      <article class="pcard" data-cat="property">
-        <div class="pcard-icon">🚗</div>
-        <span class="pcard-tag">Property · Auto</span>
-        <h3 class="pcard-name">AutoShield</h3>
-        <p class="pcard-desc">Comprehensive motor cover with accident, theft, third-party liability, and 24/7 roadside rescue across Cambodia.</p>
-        <div class="pcard-price"><sup>$</sup>28<sub>/month</sub></div>
-        <ul class="pcard-feat">
-          <li>Comprehensive cover</li>
-          <li>24/7 roadside assistance</li>
-          <li>Windscreen replacement</li>
-          <li>No-claim bonus up to 55%</li>
-        </ul>
-        <button class="pcard-btn">Get This Plan →</button>
-      </article>
-
-    </div><!-- /product-track -->
-  </div><!-- /product-track-wrap -->
-
-  <!-- Dot / pill indicators -->
-  <div class="product-nav" id="productDots" role="tablist" aria-label="Product navigation dots"></div>
 
 </section>
 
 
 <!-- ═══════════════════════════════════
-     WHY US — infinite ticker
+     WHY US — gold-pale ticker strip
 ═══════════════════════════════════ -->
 <section id="why">
   <div class="why-inner">
@@ -536,65 +395,50 @@
 ═══════════════════════════════════ -->
 <section id="contact">
 
-  <!-- Left: contact info -->
   <div class="contact-info-col reveal-left">
     <span class="section-eyebrow">Get In Touch</span>
     <h2 class="section-title">Talk to a real advisor — not a bot</h2>
     <p class="sub">Our team speaks Khmer and English. No pressure, no jargon — just honest guidance to find the right plan for your family.</p>
-
     <div class="info-items">
       <div class="info-item">
         <span class="ii-icon">📞</span>
-        <div>
-          <strong>Call Us</strong>
-          <span>023 999 888 &middot; Mon–Sat</span>
-        </div>
+        <div><strong>Call Us</strong><span>023 999 888 &middot; Mon–Sat</span></div>
       </div>
       <div class="info-item">
         <span class="ii-icon">✉️</span>
-        <div>
-          <strong>Email</strong>
-          <span>hello@ftlinsurance.com.kh</span>
-        </div>
+        <div><strong>Email</strong><span>hello@ftlinsurance.com.kh</span></div>
       </div>
       <div class="info-item">
         <span class="ii-icon">📍</span>
-        <div>
-          <strong>Head Office</strong>
-          <span>FTL Tower, Norodom Blvd, Phnom Penh 12301</span>
-        </div>
+        <div><strong>Head Office</strong><span>FTL Tower, Norodom Blvd, Phnom Penh 12301</span></div>
       </div>
       <div class="info-item">
         <span class="ii-icon">🕐</span>
-        <div>
-          <strong>Opening Hours</strong>
-          <span>Mon–Fri 8 AM–6 PM &middot; Sat 9 AM–12 PM</span>
-        </div>
+        <div><strong>Opening Hours</strong><span>Mon–Fri 8 AM–6 PM &middot; Sat 9 AM–12 PM</span></div>
       </div>
     </div>
   </div>
 
-  <!-- Right: enquiry form -->
   <div class="reveal-right">
     <span class="section-eyebrow" style="display:block;margin-bottom:20px">Free Consultation</span>
     <form class="contact-form" id="contactForm" novalidate>
       <div class="form-row">
         <div class="form-group">
           <label for="fname">First Name</label>
-          <input id="fname" type="text" placeholder="Sokha" autocomplete="given-name" />
+          <input id="fname" type="text" placeholder="Sokha" autocomplete="given-name"/>
         </div>
         <div class="form-group">
           <label for="lname">Last Name</label>
-          <input id="lname" type="text" placeholder="Chan" autocomplete="family-name" />
+          <input id="lname" type="text" placeholder="Chan" autocomplete="family-name"/>
         </div>
       </div>
       <div class="form-group">
         <label for="femail">Email Address</label>
-        <input id="femail" type="email" placeholder="sokha@example.com" autocomplete="email" />
+        <input id="femail" type="email" placeholder="sokha@example.com" autocomplete="email"/>
       </div>
       <div class="form-group">
         <label for="fphone">Phone Number</label>
-        <input id="fphone" type="tel" placeholder="+855 12 000 000" autocomplete="tel" />
+        <input id="fphone" type="tel" placeholder="+855 12 000 000" autocomplete="tel"/>
       </div>
       <div class="form-group">
         <label for="fplan">Product Interest</label>
@@ -613,8 +457,8 @@
         </select>
       </div>
       <div class="form-group">
-        <label for="fmessage">Message <span style="font-size:.8em;opacity:.6">(optional)</span></label>
-        <textarea id="fmessage" placeholder="Tell us about your coverage needs or any questions you have…"></textarea>
+        <label for="fmessage">Message <span style="font-size:.8em;opacity:.5">(optional)</span></label>
+        <textarea id="fmessage" placeholder="Tell us about your coverage needs…"></textarea>
       </div>
       <button class="form-submit" type="submit">Send My Request →</button>
     </form>
@@ -629,18 +473,11 @@
 <footer>
   <div class="footer-top">
     <div class="footer-brand">
-      <div class="footer-logo" style="margin-bottom:14px">
-        <span style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:#fff;display:flex;align-items:center;gap:9px;">
-          <!-- Tiny icon mark in white for footer -->
-          <svg width="24" height="24" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path fill="#C4950C" d="M287.65,294.99l-80.53-80.65v-7.1s7.2,0,7.2,0l80.56,80.38.18.17c9.92,8.83,22.73,13.69,36.07,13.69,29.96,0,54.32-24.35,54.32-54.28,0-19.71-10.69-37.66-27.4-47.2,16.7-9.62,27.4-27.54,27.4-47.09,0-29.96-24.37-54.34-54.32-54.34-13.3,0-26.11,4.87-36.06,13.72l-80.62,80.51h-7.34s0-3.85,0-3.85v-3.19s80.38-80.54,80.38-80.54l.17-.18c8.84-9.95,13.7-22.77,13.7-36.08,0-29.95-24.36-54.32-54.31-54.32-19.69,0-37.63,10.7-47.17,27.41-9.63-16.71-27.54-27.41-47.12-27.41-29.95,0-54.32,24.37-54.32,54.32,0,13.29,4.87,26.1,13.69,36.08l80.54,80.62v7.16s-6.98,0-6.98,0l-80.56-80.38-.18-.17c-9.96-8.83-22.76-13.69-36.07-13.69-29.95,0-54.32,24.35-54.32,54.29,0,19.71,10.7,37.65,27.4,47.18-16.7,9.63-27.4,27.56-27.4,47.12,0,29.95,24.37,54.32,54.32,54.32,13.3,0,26.11-4.87,36.07-13.72l80.61-80.51h7.12s0,7,0,7l-80.38,80.55-.17.18c-8.83,9.96-13.7,22.76-13.7,36.06,0,29.95,24.36,54.32,54.3,54.32,19.71,0,37.66-10.69,47.18-27.39,9.63,16.7,27.55,27.39,47.11,27.39,29.95,0,54.32-24.37,54.32-54.32,0-13.27-4.87-26.07-13.7-36.05Z"/>
-          </svg>
-          FTL <span style="color:#C4950C">Insurance</span>
-        </span>
+      <div class="footer-logo-wrap">
+        <img src="assets/svg/logo.svg" alt="FTL Insurance"/>
       </div>
       <p>Licensed insurer in Cambodia since 1999. Supervised by the Insurance Regulator of Cambodia. All products are subject to policy terms and conditions.</p>
     </div>
-
     <div class="footer-col">
       <h4>Company</h4>
       <ul>
@@ -669,7 +506,6 @@
       </ul>
     </div>
   </div>
-
   <div class="footer-bottom">
     <span>© 2026 FTL Insurance Co., Ltd. All rights reserved.</span>
     <div class="footer-bottom-links">
@@ -679,6 +515,7 @@
     </div>
   </div>
 </footer>
-<script src="app.js"></script>
+
+<script src="assets/js/app.js"></script>
 </body>
 </html>
